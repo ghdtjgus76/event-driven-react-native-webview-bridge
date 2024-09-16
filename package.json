@@ -10,5 +10,8 @@
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "react-native-webview": "^13.12.2"
   }
 }
