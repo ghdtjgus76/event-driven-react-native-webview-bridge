@@ -30,3 +30,5 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
 
   public onMessage() {}
 }
+
+export default ReactNativeWebViewBridge;
