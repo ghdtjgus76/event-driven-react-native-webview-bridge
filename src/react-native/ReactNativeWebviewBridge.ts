@@ -25,4 +25,8 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
   ) {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
+
+  public postMessage() {}
+
+  public onMessage() {}
 }

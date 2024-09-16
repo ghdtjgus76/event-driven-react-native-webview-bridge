@@ -1,5 +1,3 @@
-import { RefObject } from "react";
-import { WebView, WebViewMessageEvent } from "react-native-webview";
 import { PluginMap, WebViewBridgePluginManager } from "../shared/Plugin";
 import { WebViewBridgeOptions } from "../shared/types";
 
@@ -28,18 +26,9 @@ class ReactWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
-  public postMessage(webviewRef: RefObject<WebView>, message: any) {
-    if (webviewRef.current) {
-      webviewRef.current.postMessage(JSON.stringify(message));
-      return;
-    }
+  public postMessage() {}
 
-    throw new Error("WebView instance is not available.");
-  }
-
-  public onMessage({ nativeEvent }: WebViewMessageEvent) {
-    return JSON.parse(nativeEvent.data);
-  }
+  public onMessage() {}
 }
 
 export default ReactWebViewBridge;
