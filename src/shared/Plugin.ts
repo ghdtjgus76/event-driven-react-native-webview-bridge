@@ -1,9 +1,9 @@
 type PluginFunctionType = (...args: any[]) => any;
-interface PluginMap {
+export interface PluginMap {
   [pluginName: string]: WebViewBridgePlugin;
 }
 
-class WebViewBridgePlugin {
+export class WebViewBridgePlugin {
   private pluginFunction: PluginFunctionType;
 
   constructor(pluginFunction: PluginFunctionType) {
@@ -15,7 +15,7 @@ class WebViewBridgePlugin {
   }
 }
 
-class WebViewBridgePluginManager<P extends PluginMap> {
+export class WebViewBridgePluginManager<P extends PluginMap> {
   private plugins = {} as P;
 
   constructor(plugins?: P) {
@@ -24,7 +24,7 @@ class WebViewBridgePluginManager<P extends PluginMap> {
 
   public triggerPluginActions<K extends keyof P>(
     pluginName: K,
-    ...args: any[]
+    ...args: Parameters<P[K]["execute"]>
   ) {
     const plugin = this.plugins[pluginName];
 

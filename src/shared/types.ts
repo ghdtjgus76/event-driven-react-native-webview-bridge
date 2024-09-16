@@ -1,3 +1,3 @@
-export interface WebViewBridgeOptions {
-  plugins?: unknown[];
+export interface WebViewBridgeOptions<P> {
+  plugins?: P;
 }
