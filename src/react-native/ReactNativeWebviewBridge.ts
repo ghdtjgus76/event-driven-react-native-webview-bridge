@@ -2,19 +2,18 @@ import { RefObject } from "react";
 import { WebView } from "react-native-webview";
 import { PluginMap, WebViewBridgePluginManager } from "../shared/Plugin";
 import { MessagePayload, WebViewBridgeOptions } from "../shared/types";
-import MessageEventHandler, {
-  MessageHandlerFunction,
-} from "./MessageEventHandler";
+import ReactNativeMessageEventHandler from "./ReactNativeMessageEventHandler";
+import { MessageHandlerFunction } from "../shared/BaseMessageEventHandler";
 
 class ReactNativeWebViewBridge<P extends PluginMap> {
   private static instance: ReactNativeWebViewBridge<PluginMap>;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
-  private messageEventHandler: MessageEventHandler;
+  private messageEventHandler: ReactNativeMessageEventHandler;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
     this.pluginManager = new WebViewBridgePluginManager(options.plugins);
-    this.messageEventHandler = new MessageEventHandler();
+    this.messageEventHandler = new ReactNativeMessageEventHandler();
     this.messageEventHandler.addMessageEventListener();
   }
 

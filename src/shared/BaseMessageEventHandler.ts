@@ -2,8 +2,8 @@ import { MessagePayload } from "../shared/types";
 
 export type MessageHandlerFunction = (message: MessagePayload) => void;
 
-class MessageEventHandler {
-  private handlers: Map<string, MessageHandlerFunction> = new Map();
+abstract class BaseMessageEventHandler {
+  protected handlers: Map<string, MessageHandlerFunction> = new Map();
 
   public addHandler(type: string, handler: MessageHandlerFunction) {
     this.handlers.set(type, handler);
@@ -17,7 +17,7 @@ class MessageEventHandler {
     }
   }
 
-  private handleMessageEvent = (event: MessageEvent) => {
+  protected handleMessageEvent = (event: MessageEvent) => {
     try {
       const { data } = event;
       const message: MessagePayload = JSON.parse(data);
@@ -32,15 +32,9 @@ class MessageEventHandler {
     }
   };
 
-  public addMessageEventListener() {
-    document.addEventListener("message", this.handleMessageEvent);
-    window.addEventListener("message", this.handleMessageEvent);
-  }
+  abstract addMessageEventListener(): void;
 
-  public removeMessageEventListener() {
-    document.removeEventListener("message", this.handleMessageEvent);
-    window.removeEventListener("message", this.handleMessageEvent);
-  }
+  abstract removeMessageEventListener(): void;
 }
 
-export default MessageEventHandler;
+export default BaseMessageEventHandler;

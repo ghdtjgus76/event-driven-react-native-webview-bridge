@@ -1,18 +1,17 @@
+import { MessageHandlerFunction } from "../shared/BaseMessageEventHandler";
 import { PluginMap, WebViewBridgePluginManager } from "../shared/Plugin";
 import { WebViewBridgeOptions, MessagePayload } from "../shared/types";
-import MessageEventHandler, {
-  MessageHandlerFunction,
-} from "./MessageEventHandler";
+import ReactMessageEventHandler from "./ReactMessageEventHandler";
 
 class ReactWebViewBridge<P extends PluginMap> {
   private static instance: ReactWebViewBridge<PluginMap>;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
-  private messageEventHandler: MessageEventHandler;
+  private messageEventHandler: ReactMessageEventHandler;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
     this.pluginManager = new WebViewBridgePluginManager(options.plugins);
-    this.messageEventHandler = new MessageEventHandler();
+    this.messageEventHandler = new ReactMessageEventHandler();
     this.messageEventHandler.addMessageEventListener();
   }
 
