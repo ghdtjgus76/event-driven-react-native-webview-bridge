@@ -4,3 +4,7 @@ interface Window {
   };
   MSStream?: any;
 }
+
+interface DocumentEventMap {
+  message: MessageEvent;
+}

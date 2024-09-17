@@ -1,6 +1,9 @@
 import { RefObject } from "react";
 import { WebView } from "react-native-webview";
-import { PluginMap, WebViewBridgePluginManager } from "../../shared/core/Plugin";
+import {
+  PluginMap,
+  WebViewBridgePluginManager,
+} from "../../shared/core/Plugin";
 import { MessagePayload, WebViewBridgeOptions } from "../../shared/types/types";
 import ReactNativeMessageEventHandler from "./ReactNativeMessageEventHandler";
 import { MessageHandlerFunction } from "../../shared/core/BaseMessageEventHandler";
