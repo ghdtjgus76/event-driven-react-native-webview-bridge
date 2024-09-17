@@ -1,4 +1,4 @@
-import BaseMessageEventHandler from "../shared/BaseMessageEventHandler";
+import BaseMessageEventHandler from "../shared/core/BaseMessageEventHandler";
 
 class ReactMessageEventHandler extends BaseMessageEventHandler {
   public addMessageEventListener() {

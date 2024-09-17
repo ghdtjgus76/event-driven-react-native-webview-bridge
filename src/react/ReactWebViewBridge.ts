@@ -1,6 +1,6 @@
-import { MessageHandlerFunction } from "../shared/BaseMessageEventHandler";
-import { PluginMap, WebViewBridgePluginManager } from "../shared/Plugin";
-import { WebViewBridgeOptions, MessagePayload } from "../shared/types";
+import { MessageHandlerFunction } from "../shared/core/BaseMessageEventHandler";
+import { PluginMap, WebViewBridgePluginManager } from "../shared/core/Plugin";
+import { WebViewBridgeOptions, MessagePayload } from "../shared/types/types";
 import ReactMessageEventHandler from "./ReactMessageEventHandler";
 
 class ReactWebViewBridge<P extends PluginMap> {
