@@ -21,7 +21,7 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.messageEventHandler.removeMessageEventListener();
   }
 
-  public static getInstance<P extends PluginMap>(options: {
+  public static getInstance<P extends PluginMap>(options?: {
     plugins: P;
   }): ReactNativeWebViewBridge<P> {
     if (!this.instance) {
@@ -39,7 +39,7 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
   }
 
   public postMessage(
-    webviewRef: RefObject<WebView>,
+    webViewRef: RefObject<WebView>,
     message: {
       type: MessagePayload["type"];
       data: MessagePayload["data"];
@@ -50,12 +50,12 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
 
     return new Promise((resolve, reject) => {
       try {
-        if (webviewRef.current) {
-          webviewRef.current.postMessage(requestMessage);
+        if (webViewRef.current) {
+          webViewRef.current.postMessage(requestMessage);
 
           resolve({ success: true });
         } else {
-          reject(new Error("WebviewRef is not defined"));
+          reject(new Error("WebViewRef is not defined"));
         }
       } catch (error) {
         reject(error);

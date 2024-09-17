@@ -19,7 +19,7 @@ class ReactWebViewBridge<P extends PluginMap> {
     this.messageEventHandler.removeMessageEventListener();
   }
 
-  public static getInstance<P extends PluginMap>(options: {
+  public static getInstance<P extends PluginMap>(options?: {
     plugins: P;
   }): ReactWebViewBridge<P> {
     if (!this.instance) {
