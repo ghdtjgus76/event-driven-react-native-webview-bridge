@@ -5,9 +5,13 @@ type NavigationParams =
   | { action: "push"; params: { screen: string; params?: object } }
   | { action: "pop"; params?: never };
 
+type NavigationPluginOptions = NavigationParams & {
+  navigationRef: NavigationContainerRef<any>;
+};
+
 export const navigationPlugin = new WebViewBridgePlugin(
-  (args: NavigationParams & { navigationRef: NavigationContainerRef<any> }) => {
-    const { action, params, navigationRef } = args;
+  (options: NavigationPluginOptions) => {
+    const { action, params, navigationRef } = options;
 
     if (action === "push") {
       navigationRef.navigate(params.screen, params.params);
