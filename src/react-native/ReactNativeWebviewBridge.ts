@@ -1,12 +1,25 @@
+import { RefObject } from "react";
+import { WebView } from "react-native-webview";
 import { PluginMap, WebViewBridgePluginManager } from "../shared/Plugin";
-import { WebViewBridgeOptions } from "../shared/types";
+import { MessagePayload, WebViewBridgeOptions } from "../shared/types";
+import MessageEventHandler, {
+  MessageHandlerFunction,
+} from "./MessageEventHandler";
 
 class ReactNativeWebViewBridge<P extends PluginMap> {
   private static instance: ReactNativeWebViewBridge<PluginMap>;
   private pluginManager: WebViewBridgePluginManager<P>;
+  private requestId: number = 0;
+  private messageEventHandler: MessageEventHandler;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
     this.pluginManager = new WebViewBridgePluginManager(options.plugins);
+    this.messageEventHandler = new MessageEventHandler();
+    this.messageEventHandler.addMessageEventListener();
+  }
+
+  public cleanup() {
+    this.messageEventHandler.removeMessageEventListener();
   }
 
   public static getInstance<P extends PluginMap>(options: {
@@ -26,9 +39,41 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
-  public postMessage() {}
+  public postMessage(
+    webviewRef: RefObject<WebView>,
+    message: {
+      type: MessagePayload["type"];
+      data: MessagePayload["data"];
+    }
+  ): Promise<{ success: boolean }> {
+    const requestId = this.generateRequestId();
+    const requestMessage = JSON.stringify({ ...message, requestId });
 
-  public onMessage() {}
+    return new Promise((resolve, reject) => {
+      try {
+        if (webviewRef.current) {
+          webviewRef.current.postMessage(requestMessage);
+
+          resolve({ success: true });
+        } else {
+          reject(new Error("WebviewRef is not defined"));
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  public onMessage(
+    type: MessagePayload["type"],
+    handler: MessageHandlerFunction
+  ) {
+    this.messageEventHandler.addHandler(type, handler);
+  }
+
+  private generateRequestId(): MessagePayload["requestId"] {
+    return `request_${this.requestId++}`;
+  }
 }
 
 export default ReactNativeWebViewBridge;
