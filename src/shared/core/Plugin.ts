@@ -19,7 +19,9 @@ export class WebViewBridgePluginManager<P extends PluginMap> {
   private plugins = {} as P;
 
   constructor(plugins?: P) {
-    this.plugins = plugins;
+    if (plugins) {
+      this.plugins = plugins;
+    }
   }
 
   public triggerPluginActions<K extends keyof P>(
