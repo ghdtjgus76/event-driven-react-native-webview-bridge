@@ -1,19 +1,17 @@
-import { RefObject } from "react";
-import { WebView } from "react-native-webview";
-import { PluginMap, WebViewBridgePluginManager } from "../shared/core/Plugin";
-import { MessagePayload, WebViewBridgeOptions } from "../shared/types/types";
-import ReactNativeMessageEventHandler from "./ReactNativeMessageEventHandler";
-import { MessageHandlerFunction } from "../shared/core/BaseMessageEventHandler";
+import { MessageHandlerFunction } from "../../shared/core/BaseMessageEventHandler";
+import { PluginMap, WebViewBridgePluginManager } from "../../shared/core/Plugin";
+import { WebViewBridgeOptions, MessagePayload } from "../../shared/types/types";
+import ReactMessageEventHandler from "./ReactMessageEventHandler";
 
-class ReactNativeWebViewBridge<P extends PluginMap> {
-  private static instance: ReactNativeWebViewBridge<PluginMap>;
+class ReactWebViewBridge<P extends PluginMap> {
+  private static instance: ReactWebViewBridge<PluginMap>;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
-  private messageEventHandler: ReactNativeMessageEventHandler;
+  private messageEventHandler: ReactMessageEventHandler;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
     this.pluginManager = new WebViewBridgePluginManager(options?.plugins);
-    this.messageEventHandler = new ReactNativeMessageEventHandler();
+    this.messageEventHandler = new ReactMessageEventHandler();
     this.messageEventHandler.addMessageEventListener();
   }
 
@@ -23,12 +21,12 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
 
   public static getInstance<P extends PluginMap>(options?: {
     plugins: P;
-  }): ReactNativeWebViewBridge<P> {
+  }): ReactWebViewBridge<P> {
     if (!this.instance) {
-      this.instance = new ReactNativeWebViewBridge(options);
+      this.instance = new ReactWebViewBridge(options);
     }
 
-    return this.instance as ReactNativeWebViewBridge<P>;
+    return this.instance as ReactWebViewBridge<P>;
   }
 
   public triggerPluginActions<K extends keyof P>(
@@ -38,24 +36,28 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
-  public postMessage(
-    webViewRef: RefObject<WebView>,
-    message: {
-      type: MessagePayload["type"];
-      data: MessagePayload["data"];
-    }
-  ): Promise<{ success: boolean }> {
+  public postMessage(message: {
+    type: MessagePayload["type"];
+    data: MessagePayload["data"];
+  }): Promise<{ success: boolean }> {
     const requestId = this.generateRequestId();
     const requestMessage = JSON.stringify({ ...message, requestId });
 
     return new Promise((resolve, reject) => {
       try {
-        if (webViewRef.current) {
-          webViewRef.current.postMessage(requestMessage);
+        if (
+          window.ReactNativeWebView &&
+          typeof window.ReactNativeWebView.postMessage === "function"
+        ) {
+          window.ReactNativeWebView.postMessage(requestMessage);
 
           resolve({ success: true });
         } else {
-          reject(new Error("WebViewRef is not defined"));
+          reject(
+            new Error(
+              "ReactNativeWebView is not defined or postMessage is not a function"
+            )
+          );
         }
       } catch (error) {
         reject(error);
@@ -75,4 +77,4 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
   }
 }
 
-export default ReactNativeWebViewBridge;
+export default ReactWebViewBridge;

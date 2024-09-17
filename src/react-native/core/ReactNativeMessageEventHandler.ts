@@ -1,5 +1,5 @@
-import BaseMessageEventHandler from "../shared/core/BaseMessageEventHandler";
-import { detectEnvironment } from "../shared/utils/environment";
+import BaseMessageEventHandler from "../../shared/core/BaseMessageEventHandler";
+import { detectEnvironment } from "../../shared/utils/environment";
 
 class ReactNativeMessageEventHandler extends BaseMessageEventHandler {
   private os = detectEnvironment().os;
