@@ -12,7 +12,7 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
   private messageEventHandler: ReactNativeMessageEventHandler;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
-    this.pluginManager = new WebViewBridgePluginManager(options.plugins);
+    this.pluginManager = new WebViewBridgePluginManager(options?.plugins);
     this.messageEventHandler = new ReactNativeMessageEventHandler();
     this.messageEventHandler.addMessageEventListener();
   }

@@ -10,7 +10,7 @@ class ReactWebViewBridge<P extends PluginMap> {
   private messageEventHandler: ReactMessageEventHandler;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
-    this.pluginManager = new WebViewBridgePluginManager(options.plugins);
+    this.pluginManager = new WebViewBridgePluginManager(options?.plugins);
     this.messageEventHandler = new ReactMessageEventHandler();
     this.messageEventHandler.addMessageEventListener();
   }
