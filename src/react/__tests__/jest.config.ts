@@ -7,4 +7,5 @@ module.exports = {
   },
   testMatch: ["<rootDir>/**/*.test.(js|jsx|ts|tsx)"],
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
+  extensionsToTreatAsEsm: [".ts", ".tsx"],
 };

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest --passWithNoTests",
     "test:react": "jest --config ./src/react/__tests__/jest.config.ts --passWithNoTests",
@@ -13,7 +14,8 @@
   "license": "MIT",
   "peerDependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-native": "^0.75.3"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.18",
@@ -21,15 +23,24 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-flow-strip-types": "^7.25.2",
+    "@babel/plugin-transform-private-methods": "^7.25.4",
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/plugin-transform-typescript": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/react-native": "^12.7.2",
     "@types/jest": "^29.5.13",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2"
   }
 }
