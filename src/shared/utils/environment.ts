@@ -3,6 +3,14 @@ interface EnvironmentInfo {
   deviceType: "Mobile" | "Tablet" | "Desktop" | "Unknown";
   isWebView: boolean;
   isBrowser: boolean;
+  isAndroid: boolean;
+  isIOS: boolean;
+  isWindows: boolean;
+  isMacOS: boolean;
+  isLinux: boolean;
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktop: boolean;
 }
 
 export const detectEnvironment = (): EnvironmentInfo => {
@@ -44,5 +52,13 @@ export const detectEnvironment = (): EnvironmentInfo => {
     deviceType,
     isWebView,
     isBrowser,
+    isAndroid,
+    isIOS,
+    isWindows,
+    isMacOS,
+    isLinux,
+    isMobile,
+    isTablet,
+    isDesktop,
   };
 };
