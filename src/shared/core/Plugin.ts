@@ -37,4 +37,8 @@ export class WebViewBridgePluginManager<P extends PluginMap> {
 
     throw new Error(`Plugin ${String(pluginName)} not found`);
   }
+
+  public getPlugins() {
+    return this.plugins;
+  }
 }

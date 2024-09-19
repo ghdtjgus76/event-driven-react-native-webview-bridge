@@ -1,10 +1,13 @@
 import { MessageHandlerFunction } from "../../shared/core/BaseMessageEventHandler";
-import { PluginMap, WebViewBridgePluginManager } from "../../shared/core/Plugin";
+import {
+  PluginMap,
+  WebViewBridgePluginManager,
+} from "../../shared/core/Plugin";
 import { WebViewBridgeOptions, MessagePayload } from "../../shared/types/types";
 import ReactMessageEventHandler from "./ReactMessageEventHandler";
 
 class ReactWebViewBridge<P extends PluginMap> {
-  private static instance: ReactWebViewBridge<PluginMap>;
+  private static instance: ReactWebViewBridge<PluginMap> | null = null;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
   private messageEventHandler: ReactMessageEventHandler;
@@ -17,6 +20,7 @@ class ReactWebViewBridge<P extends PluginMap> {
 
   public cleanup() {
     this.messageEventHandler.removeMessageEventListener();
+    ReactWebViewBridge.instance = null;
   }
 
   public static getInstance<P extends PluginMap>(options?: {
@@ -74,6 +78,10 @@ class ReactWebViewBridge<P extends PluginMap> {
 
   private generateRequestId(): MessagePayload["requestId"] {
     return `request_${this.requestId++}`;
+  }
+
+  public getPlugins() {
+    return this.pluginManager.getPlugins();
   }
 }
 
