@@ -20,6 +20,7 @@ class ReactWebViewBridge<P extends PluginMap> {
 
   public cleanup() {
     this.messageEventHandler.removeMessageEventListener();
+    this.pluginManager.cleanup();
     ReactWebViewBridge.instance = null;
   }
 

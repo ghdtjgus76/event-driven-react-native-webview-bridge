@@ -24,6 +24,10 @@ export class WebViewBridgePluginManager<P extends PluginMap> {
     }
   }
 
+  public cleanup() {
+    this.plugins = {} as P;
+  }
+
   public triggerPluginActions<K extends keyof P>(
     pluginName: K,
     ...args: Parameters<P[K]["execute"]>
