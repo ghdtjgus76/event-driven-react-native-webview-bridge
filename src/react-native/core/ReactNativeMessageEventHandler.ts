@@ -2,10 +2,15 @@ import BaseMessageEventHandler from "../../shared/core/BaseMessageEventHandler";
 import { detectEnvironment } from "../../shared/utils/environment";
 
 class ReactNativeMessageEventHandler extends BaseMessageEventHandler {
-  private os = detectEnvironment().os;
+  private isAndroid: boolean;
+
+  constructor() {
+    super();
+    this.isAndroid = detectEnvironment().isAndroid;
+  }
 
   public addMessageEventListener() {
-    if (this.os === "Android") {
+    if (this.isAndroid) {
       document.addEventListener("message", this.handleMessageEvent);
     } else {
       window.addEventListener("message", this.handleMessageEvent);
@@ -13,7 +18,7 @@ class ReactNativeMessageEventHandler extends BaseMessageEventHandler {
   }
 
   public removeMessageEventListener() {
-    if (this.os === "Android") {
+    if (this.isAndroid) {
       document.removeEventListener("message", this.handleMessageEvent);
     } else {
       window.removeEventListener("message", this.handleMessageEvent);
