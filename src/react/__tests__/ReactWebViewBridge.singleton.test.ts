@@ -4,6 +4,7 @@ import ReactWebViewBridge from "../core/ReactWebViewBridge";
 describe("ReactWebViewBridge Singleton", () => {
   afterEach(() => {
     ReactWebViewBridge.getInstance().cleanup();
+    jest.clearAllMocks();
   });
 
   it("should create a singleton instance of ReactWebViewBridge", () => {

@@ -5,6 +5,7 @@ import ReactNativeWebViewBridge from "../core/ReactNativeWebviewBridge";
 describe("ReactNativeWebViewBridge Singleton", () => {
   afterEach(() => {
     ReactNativeWebViewBridge.getInstance().cleanup();
+    jest.clearAllMocks();
   });
 
   it("should create a singleton instance of ReactNativeWebViewBridge", () => {

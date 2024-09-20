@@ -5,6 +5,7 @@ import ReactWebViewBridge from "../core/ReactWebViewBridge";
 describe("WebViewBridgePlugin and PluginManager", () => {
   afterEach(() => {
     ReactWebViewBridge.getInstance().cleanup();
+    jest.clearAllMocks();
   });
 
   it("should register and execute plugins correctly", () => {
