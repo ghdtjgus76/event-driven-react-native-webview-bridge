@@ -177,6 +177,9 @@ importers:
       '@babel/preset-react':
         specifier: ^7.24.7
         version: 7.24.7(@babel/core@7.25.2)
+      '@babel/preset-typescript':
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
