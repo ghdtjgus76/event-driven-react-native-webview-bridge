@@ -11,7 +11,7 @@
     "./core/Plugin": "./src/core/Plugin.ts",
     "./plugins/errorHandlingPlugin": "./src/plugins/errorHandlingPlugin.ts",
     "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
-    "./utils/enviroment": "./src/utils/enviroment.ts",
+    "./utils/environment": "./src/utils/environment.ts",
     "./types/bridge": "./src/types/bridge.ts",
     "./types/message": "./src/types/message.ts"
   }
