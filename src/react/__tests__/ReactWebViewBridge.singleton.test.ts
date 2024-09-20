@@ -19,7 +19,7 @@ describe("ReactWebViewBridge Singleton", () => {
     expect(instance1).toBe(instance2);
   });
 
-  it("should maintain singleton behavior even after cleanup", () => {
+  it("should create a new instance after cleanup", () => {
     const instance1 = ReactWebViewBridge.getInstance();
     instance1.cleanup();
     const instance2 = ReactWebViewBridge.getInstance();
@@ -44,7 +44,7 @@ describe("ReactWebViewBridge Singleton", () => {
       console.log(message)
     );
     const plugins = { logMessagePlugin };
-    ReactWebViewBridge.getInstance({
+    const instance1 = ReactWebViewBridge.getInstance({
       plugins,
     });
     const instance2 = ReactWebViewBridge.getInstance();
