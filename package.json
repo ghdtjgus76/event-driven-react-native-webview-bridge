@@ -1,5 +1,6 @@
 {
   "name": "webview-bridge",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +8,11 @@
   "scripts": {
     "test": "jest --passWithNoTests",
     "test:react": "jest --config ./src/react/__tests__/jest.config.ts --passWithNoTests",
-    "test:react-native": "jest --config ./src/react-native/__tests__/jest.config.ts --passWithNoTests"
+    "test:react-native": "jest --config ./src/react-native/__tests__/jest.config.ts --passWithNoTests",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "keywords": [],
   "author": "",
@@ -41,6 +46,13 @@
     "jest-environment-jsdom": "^29.7.0",
     "metro-react-native-babel-preset": "^0.77.0",
     "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "prettier": "^3.2.5",
+    "turbo": "^2.1.2",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@8.15.6",
+  "engines": {
+    "node": ">=18"
   }
 }
