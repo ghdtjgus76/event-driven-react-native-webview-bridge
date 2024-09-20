@@ -1,4 +1,4 @@
-import { WebViewBridgePlugin } from "../../shared/core/Plugin";
+import { WebViewBridgePlugin } from "shared/core/Plugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
 
 describe("ReactWebViewBridge Singleton", () => {

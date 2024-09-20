@@ -5,7 +5,7 @@ module.exports = {
   transform: {
     "^.+\\.(js|jsx|ts|tsx)?$": "babel-jest",
   },
-  testMatch: ["<rootDir>/**/*.test.(js|jsx|ts|tsx)"],
+  testMatch: ["<rootDir>/src/__tests__/**/*.test.(js|jsx|ts|tsx)"],
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
   extensionsToTreatAsEsm: [".ts", ".tsx"],
 };
