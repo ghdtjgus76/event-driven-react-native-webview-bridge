@@ -9,7 +9,7 @@ import ReactNativeMessageEventHandler from "./ReactNativeMessageEventHandler";
 import { MessageHandlerFunction } from "../../shared/core/BaseMessageEventHandler";
 
 class ReactNativeWebViewBridge<P extends PluginMap> {
-  private static instance: ReactNativeWebViewBridge<PluginMap>;
+  private static instance: ReactNativeWebViewBridge<PluginMap> | null = null;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
   private messageEventHandler: ReactNativeMessageEventHandler;
@@ -22,6 +22,8 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
 
   public cleanup() {
     this.messageEventHandler.removeMessageEventListener();
+    this.pluginManager.cleanup();
+    ReactNativeWebViewBridge.instance = null;
   }
 
   public static getInstance<P extends PluginMap>(options?: {
@@ -75,6 +77,10 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
 
   private generateRequestId(): MessagePayload["requestId"] {
     return `request_${this.requestId++}`;
+  }
+
+  public getPlugins() {
+    return this.pluginManager.getPlugins();
   }
 }
 
