@@ -2,6 +2,7 @@ import { WebViewBridgePlugin } from "../../shared/core/Plugin";
 import { errorHandlingPlugin } from "../../shared/plugins/errorHandlingPlugin";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebviewBridge";
 import { navigationPlugin } from "../plugins/navigationPlugin";
+import { versionHandlingPlugin } from "../plugins/versionHandlingPlugin";
 
 describe("WebViewBridgePlugin and PluginManager", () => {
   afterEach(() => {
@@ -161,4 +162,68 @@ describe("NavigationPlugin", () => {
   });
 });
 
-describe("VersionHandlingPlugin", () => {});
+describe("VersionHandlingPlugin", () => {
+  afterEach(() => {
+    ReactNativeWebViewBridge.getInstance().cleanup();
+    jest.clearAllMocks();
+  });
+
+  it("should execute the correct handler for the current app version", () => {
+    const currentVersion = "2.0.4";
+    const consoleLogMock = jest
+      .spyOn(console, "log")
+      .mockImplementation(() => {});
+
+    const versionHandlers = {
+      "0.0.0": {
+        logMessage1: (message: string) => console.log(`${message}1`),
+      },
+      "1.0.0": {
+        logMessage1: (message: string) => console.log(`${message}2`),
+      },
+      "2.0.0": {
+        logMessage1: (message: string) => console.log(`${message}3`),
+      },
+    };
+
+    versionHandlingPlugin.execute(
+      versionHandlers,
+      currentVersion,
+      "logMessage1",
+      "message"
+    );
+
+    expect(consoleLogMock).toHaveBeenCalledWith("message3");
+    consoleLogMock.mockRestore();
+  });
+
+  it("should warn if no handler is found for the current app version", () => {
+    const currentVersion = "0.0.1";
+    const consoleWarnMock = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    const versionHandlers = {
+      "1.0.0": {
+        logMessage1: (message: string) => console.log(`${message}2`),
+      },
+      "2.0.0": {
+        logMessage1: (message: string) => console.log(`${message}3`),
+      },
+    };
+
+    const targetFunctionName = "logMessage1";
+
+    versionHandlingPlugin.execute(
+      versionHandlers,
+      currentVersion,
+      targetFunctionName,
+      "message"
+    );
+
+    expect(consoleWarnMock).toHaveBeenCalledWith(
+      `No handler found for function "${targetFunctionName}" and version "${currentVersion}"`
+    );
+    consoleWarnMock.mockRestore();
+  });
+});
