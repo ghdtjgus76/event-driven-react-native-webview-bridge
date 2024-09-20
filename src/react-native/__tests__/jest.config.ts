@@ -8,7 +8,7 @@ module.exports = {
   },
   testMatch: ["<rootDir>/**/*.test.(js|jsx|ts|tsx)"],
   setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   transformIgnorePatterns: [
     "<rootDir>/node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation|@react-native/js-polyfills)",
   ],
