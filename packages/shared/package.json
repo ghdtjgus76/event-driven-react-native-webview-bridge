@@ -1,5 +1,18 @@
 {
   "name": "shared",
   "private": true,
-  "scripts": {}
+  "scripts": {},
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "exports": {
+    "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",
+    "./core/Plugin": "./src/core/Plugin.ts",
+    "./plugins/errorHandlingPlugin": "./src/plugins/errorHandlingPlugin.ts",
+    "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
+    "./utils/enviroment": "./src/utils/enviroment.ts",
+    "./types/bridge": "./src/types/bridge.ts",
+    "./types/message": "./src/types/message.ts"
+  }
 }
