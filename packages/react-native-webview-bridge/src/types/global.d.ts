@@ -1,0 +1,3 @@
+interface DocumentEventMap {
+  message: MessageEvent;
+}
