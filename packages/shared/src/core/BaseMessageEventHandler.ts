@@ -1,4 +1,4 @@
-import { MessagePayload } from "../types/types";
+import { MessagePayload } from "../types/message";
 
 export type MessageHandlerFunction = (message: MessagePayload) => void;
 
