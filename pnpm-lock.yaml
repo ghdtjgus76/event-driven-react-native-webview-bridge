@@ -125,6 +125,27 @@ importers:
         specifier: workspace:*
         version: link:../webview-bridge-core
     devDependencies:
+      '@babel/plugin-transform-class-properties':
+        specifier: ^7.25.4
+        version: 7.25.4(@babel/core@7.25.2)
+      '@babel/plugin-transform-private-methods':
+        specifier: ^7.25.4
+        version: 7.25.4(@babel/core@7.25.2)
+      '@babel/plugin-transform-private-property-in-object':
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
+      '@babel/plugin-transform-typescript':
+        specifier: ^7.25.2
+        version: 7.25.2(@babel/core@7.25.2)
+      '@babel/preset-env':
+        specifier: ^7.25.4
+        version: 7.25.4(@babel/core@7.25.2)
+      '@babel/preset-react':
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
+      '@babel/preset-typescript':
+        specifier: ^7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -1361,7 +1382,6 @@ packages:
       '@babel/plugin-syntax-typescript': 7.25.4(@babel/core@7.25.2)
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /@babel/plugin-transform-unicode-escapes@7.24.7(@babel/core@7.25.2):
     resolution: {integrity: sha512-U3ap1gm5+4edc2Q/P+9VrBNhGkfnf+8ZqppY71Bo/pzZmXhhLdqgaUl6cuB07O1+AQJtCLfaOmswiNbSQ9ivhw==}
@@ -1548,7 +1568,6 @@ packages:
       '@babel/plugin-transform-typescript': 7.25.2(@babel/core@7.25.2)
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /@babel/register@7.24.6(@babel/core@7.25.2):
     resolution: {integrity: sha512-WSuFCc2wCqMeXkz/i3yfAAsxwWflEgbVkZzivgAmXl/MxrXeoYFZOOPllbC8R8WTF7u61wSRQtDVZ1879cdu6w==}

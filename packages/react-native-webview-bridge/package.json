@@ -5,6 +5,13 @@
     "test": "jest --config ./jest.config.ts --passWithNoTests"
   },
   "devDependencies": {
+    "@babel/plugin-transform-class-properties": "^7.25.4",
+    "@babel/plugin-transform-private-methods": "^7.25.4",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.7",
+    "@babel/plugin-transform-typescript": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/jest": "^29.5.13",
@@ -12,8 +19,8 @@
     "ts-jest": "^29.2.5"
   },
   "peerDependencies": {
-    "react-native-webview": "^13.12.2",
-    "@react-navigation/native": "^6.1.18"
+    "@react-navigation/native": "^6.1.18",
+    "react-native-webview": "^13.12.2"
   },
   "dependencies": {
     "react-webview-bridge": "workspace:*",
