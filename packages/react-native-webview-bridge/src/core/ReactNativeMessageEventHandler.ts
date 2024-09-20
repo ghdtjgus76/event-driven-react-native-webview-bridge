@@ -1,5 +1,5 @@
-import BaseMessageEventHandler from "shared/core/BaseMessageEventHandler";
-import { detectEnvironment } from "shared/utils/environment";
+import BaseMessageEventHandler from "webview-bridge-core/core/BaseMessageEventHandler";
+import { detectEnvironment } from "webview-bridge-core/utils/environment";
 
 class ReactNativeMessageEventHandler extends BaseMessageEventHandler {
   private isAndroid: boolean;

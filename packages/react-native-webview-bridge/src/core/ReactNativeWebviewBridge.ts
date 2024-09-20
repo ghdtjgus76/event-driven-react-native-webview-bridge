@@ -1,10 +1,10 @@
 import { RefObject } from "react";
 import { WebView } from "react-native-webview";
-import { PluginMap, WebViewBridgePluginManager } from "shared/core/Plugin";
-import { MessagePayload } from "shared/types/message";
-import { WebViewBridgeOptions } from "shared/types/bridge";
+import { PluginMap, WebViewBridgePluginManager } from "webview-bridge-core/core/Plugin";
+import { MessagePayload } from "webview-bridge-core/types/message";
+import { WebViewBridgeOptions } from "webview-bridge-core/types/bridge";
 import ReactNativeMessageEventHandler from "./ReactNativeMessageEventHandler";
-import { MessageHandlerFunction } from "shared/core/BaseMessageEventHandler";
+import { MessageHandlerFunction } from "webview-bridge-core/core/BaseMessageEventHandler";
 
 class ReactNativeWebViewBridge<P extends PluginMap> {
   private static instance: ReactNativeWebViewBridge<PluginMap> | null = null;

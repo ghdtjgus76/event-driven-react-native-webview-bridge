@@ -1,4 +1,4 @@
-import { PluginMap } from "shared/core/Plugin";
+import { PluginMap } from "webview-bridge-core/core/Plugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
 import ReactMessageEventHandler from "../core/ReactMessageEventHandler";
 

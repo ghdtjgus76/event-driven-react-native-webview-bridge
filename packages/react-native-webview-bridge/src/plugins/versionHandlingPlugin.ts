@@ -1,4 +1,4 @@
-import { WebViewBridgePlugin } from "shared/core/Plugin";
+import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
 
 type Version = `${number}.${number}.${number}`;
 type HandlerFunction = (...params: any[]) => any;

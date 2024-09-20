@@ -1,5 +1,5 @@
 {
-  "name": "shared",
+  "name": "webview-bridge-core",
   "private": true,
   "scripts": {},
   "devDependencies": {

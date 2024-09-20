@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "react-webview-bridge": "workspace:*",
-    "shared": "workspace:*"
+    "webview-bridge-core": "workspace:*"
   }
 }

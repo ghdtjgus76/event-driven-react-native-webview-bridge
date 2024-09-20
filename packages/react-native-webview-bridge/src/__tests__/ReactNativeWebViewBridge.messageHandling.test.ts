@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import WebView from "react-native-webview";
-import { PluginMap } from "shared/core/Plugin";
+import { PluginMap } from "webview-bridge-core/core/Plugin";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebviewBridge";
 import ReactNativeMessageEventHandler from "../core/ReactNativeMessageEventHandler";
 

@@ -1,4 +1,4 @@
-import BaseMessageEventHandler from "shared/core/BaseMessageEventHandler";
+import BaseMessageEventHandler from "webview-bridge-core/core/BaseMessageEventHandler";
 
 class ReactMessageEventHandler extends BaseMessageEventHandler {
   public addMessageEventListener() {

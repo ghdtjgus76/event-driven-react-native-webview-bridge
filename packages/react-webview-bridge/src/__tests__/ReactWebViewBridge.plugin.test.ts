@@ -1,5 +1,5 @@
-import { WebViewBridgePlugin } from "shared/core/Plugin";
-import { errorHandlingPlugin } from "shared/plugins/errorHandlingPlugin";
+import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
+import { errorHandlingPlugin } from "webview-bridge-core/plugins/errorHandlingPlugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
 
 describe("WebViewBridgePlugin and PluginManager", () => {

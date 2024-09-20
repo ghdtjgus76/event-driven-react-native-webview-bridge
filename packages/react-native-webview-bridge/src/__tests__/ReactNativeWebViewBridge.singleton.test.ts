@@ -1,5 +1,5 @@
 import ReactWebViewBridge from "react-webview-bridge/ReactWebViewBridge";
-import { WebViewBridgePlugin } from "shared/core/Plugin";
+import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebviewBridge";
 
 describe("ReactNativeWebViewBridge Singleton", () => {

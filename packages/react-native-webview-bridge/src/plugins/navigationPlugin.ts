@@ -3,7 +3,7 @@ import {
   NavigationProp,
   ParamListBase,
 } from "@react-navigation/native";
-import { WebViewBridgePlugin } from "shared/core/Plugin";
+import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
 
 type NavigationParams =
   | { action: "push"; params: { screen: string; params?: object } }

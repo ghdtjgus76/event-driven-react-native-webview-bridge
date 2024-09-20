@@ -121,9 +121,9 @@ importers:
       react-webview-bridge:
         specifier: workspace:*
         version: link:../react-webview-bridge
-      shared:
+      webview-bridge-core:
         specifier: workspace:*
-        version: link:../shared
+        version: link:../webview-bridge-core
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -146,9 +146,9 @@ importers:
       react:
         specifier: 18.3.1
         version: 18.3.1
-      shared:
+      webview-bridge-core:
         specifier: workspace:*
-        version: link:../shared
+        version: link:../webview-bridge-core
     devDependencies:
       '@babel/preset-env':
         specifier: ^7.25.4
@@ -175,7 +175,9 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
 
-  packages/shared:
+  packages/typescript-config: {}
+
+  packages/webview-bridge-core:
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -183,8 +185,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-
-  packages/typescript-config: {}
 
 packages:
 
