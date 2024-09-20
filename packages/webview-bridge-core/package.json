@@ -2,10 +2,6 @@
   "name": "webview-bridge-core",
   "private": true,
   "scripts": {},
-  "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
-  },
   "exports": {
     "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",
     "./core/Plugin": "./src/core/Plugin.ts",
@@ -14,5 +10,9 @@
     "./utils/environment": "./src/utils/environment.ts",
     "./types/bridge": "./src/types/bridge.ts",
     "./types/message": "./src/types/message.ts"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
   }
 }
