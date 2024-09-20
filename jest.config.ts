@@ -1,6 +1,6 @@
 module.exports = {
   projects: [
-    "<rootDir>/src/react/__tests__/jest.config.ts",
-    "<rootDir>/src/react-native/__tests__/jest.config.ts",
+    "<rootDir>/packages/react-webview-bridge/jest.config.ts",
+    "<rootDir>/packages/react-native-webview-bridge/jest.config.ts",
   ],
 };
