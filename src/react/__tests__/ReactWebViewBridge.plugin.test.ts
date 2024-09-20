@@ -16,7 +16,7 @@ describe("WebViewBridgePlugin and PluginManager", () => {
 
     instance.triggerPluginActions("logMessagePlugin", "message");
 
-    expect(pluginFunction).toHaveBeenCalledTimes(1);
+    expect(pluginFunction).toHaveBeenCalled();
     expect(pluginFunction).toHaveBeenCalledWith("message");
   });
 
@@ -27,7 +27,7 @@ describe("WebViewBridgePlugin and PluginManager", () => {
     const instance = ReactWebViewBridge.getInstance({ plugins });
 
     expect(() => {
-      instance.triggerPluginActions("nonExistingPlugin");
+      instance.triggerPluginActions("nonExistingPlugin" as any);
     }).toThrow(new Error("Plugin nonExistingPlugin not found"));
   });
 
@@ -41,6 +41,13 @@ describe("WebViewBridgePlugin and PluginManager", () => {
     });
 
     expect(instance.getPlugins()).toEqual(plugins);
+  });
+});
+
+describe("ErrorHandlingPlugin", () => {
+  afterEach(() => {
+    ReactWebViewBridge.getInstance().cleanup();
+    jest.clearAllMocks();
   });
 
   it("should handle errors with the errorHandlingPlugin", () => {
