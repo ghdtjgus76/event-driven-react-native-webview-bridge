@@ -2,7 +2,7 @@ import { WebViewBridgePlugin } from "../../shared/core/Plugin";
 
 type Version = `${number}.${number}.${number}`;
 type HandlerFunction = (...params: any[]) => any;
-interface VersionHandlers {
+export interface VersionHandlers {
   [version: Version]: {
     [functionName: string]: HandlerFunction;
   };
@@ -12,14 +12,14 @@ export const versionHandlingPlugin = new WebViewBridgePlugin(
   (
     versionHandlers: VersionHandlers,
     currentVersion: Version,
-    functionName: keyof VersionHandlers[keyof VersionHandlers],
+    functionName: keyof VersionHandlers[Version],
     ...params: any[]
   ) => {
     const sortedVersions = (Object.keys(versionHandlers) as Version[]).sort(
       compareVersions
     );
 
-    for (let i = 0; i < sortedVersions.length; i++) {
+    for (let i = sortedVersions.length - 1; i >= 0; i--) {
       const version = sortedVersions[i];
 
       if (compareVersions(version, currentVersion) <= 0) {
