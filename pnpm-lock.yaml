@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@react-native/gradle-plugin':
+        specifier: ^0.75.3
+        version: 0.75.3
       '@types/node':
         specifier: ^20
         version: 20.16.5
@@ -70,6 +73,9 @@ importers:
       '@react-native/eslint-config':
         specifier: 0.75.3
         version: 0.75.3(eslint@8.57.1)(jest@29.7.0)(prettier@2.8.8)(typescript@5.0.4)
+      '@react-native/gradle-plugin':
+        specifier: ^0.75.3
+        version: 0.75.3
       '@react-native/metro-config':
         specifier: 0.75.3
         version: 0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4)
@@ -2524,7 +2530,6 @@ packages:
   /@react-native/gradle-plugin@0.75.3:
     resolution: {integrity: sha512-mSfa/Mq/AsALuG/kvXz5ECrc6HdY5waMHal2sSfa8KA0Gt3JqYQVXF9Pdwd4yR5ClPZDI2HRa1tdE8GVlhMvPA==}
     engines: {node: '>=18'}
-    dev: false
 
   /@react-native/js-polyfills@0.75.3:
     resolution: {integrity: sha512-+JVFJ351GSJT3V7LuXscMqfnpR/UxzsAjbBjfAHBR3kqTbVqrAmBccqPCA3NLzgb/RY8khLJklwMUVlWrn8iFg==}
