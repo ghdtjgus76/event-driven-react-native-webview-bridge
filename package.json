@@ -15,6 +15,7 @@
     "lint": "turbo lint"
   },
   "devDependencies": {
+    "@react-native/gradle-plugin": "^0.75.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
