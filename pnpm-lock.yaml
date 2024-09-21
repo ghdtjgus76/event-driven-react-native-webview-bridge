@@ -63,6 +63,9 @@ importers:
       react-native:
         specifier: 0.75.3
         version: 0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4)(@types/react@18.3.8)(react@18.3.1)(typescript@5.0.4)
+      react-native-webview:
+        specifier: ^13.12.2
+        version: 13.12.2(react-native@0.75.3)(react@18.3.1)
       react-native-webview-bridge:
         specifier: workspace:*
         version: link:../../packages/react-native-webview-bridge
@@ -7912,7 +7915,7 @@ packages:
       escape-string-regexp: 4.0.0
       invariant: 2.2.4
       react: 18.3.1
-      react-native: 0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4)(@types/react@18.3.8)(react@18.3.1)(typescript@5.6.2)
+      react-native: 0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4)(@types/react@18.3.8)(react@18.3.1)(typescript@5.0.4)
     dev: false
 
   /react-native@0.75.3(@babel/core@7.25.2)(@babel/preset-env@7.25.4)(@types/react@18.3.8)(react@18.3.1)(typescript@5.0.4):
