@@ -1,5 +1,5 @@
 {
-  "name": "react-native",
+  "name": "react-native-webview-bridge",
   "private": true,
   "exports": {
     ".": "./src/core/ReactNativeWebviewBridge.ts",
