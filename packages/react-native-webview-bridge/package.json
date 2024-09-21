@@ -1,6 +1,11 @@
 {
   "name": "react-native",
   "private": true,
+  "exports": {
+    ".": "./src/core/ReactNativeWebviewBridge.ts",
+    "./plugins/navigationPlugin": "./src/core/plugins/navigationPlugin.ts",
+    "./plugins/versionHandlingPlugin": "./src/core/plugins/versionHandlingPlugin.ts"
+  },
   "scripts": {
     "test": "jest --config ./jest.config.ts --passWithNoTests"
   },
