@@ -1,16 +1,14 @@
 import React from 'react';
-import {Dimensions, SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {WebView} from 'react-native-webview';
-
-const deviceHeight = Dimensions.get('window').height;
-const deviceWidth = Dimensions.get('window').width;
+import {deviceWidth, deviceHeight} from './src/constants/dimensions';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <WebView
         style={styles.webview}
-        source={{uri: 'http://192.168.200.100:3000/'}}
+        source={{uri: 'http://192.168.200.101:3000/'}}
       />
     </SafeAreaView>
   );
