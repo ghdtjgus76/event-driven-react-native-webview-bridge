@@ -6,14 +6,14 @@ import { useEffect } from "react";
 import ReactWebViewBridge from "react-webview-bridge";
 
 export default function Home() {
-  const webviewBridge = ReactWebViewBridge.getInstance();
+  const webViewBridge = ReactWebViewBridge.getInstance();
 
   useEffect(() => {
-    webviewBridge.onMessage("message1", (message) => {
+    webViewBridge.onMessage("message1", (message) => {
       alert(`${message.type}: ${message.data}`);
     });
 
-    const response = webviewBridge.postMessage({
+    const response = webViewBridge.postMessage({
       type: "message2",
       data: "메시지2",
     });
