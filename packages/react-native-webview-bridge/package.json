@@ -2,12 +2,16 @@
   "name": "react-native-webview-bridge",
   "private": true,
   "exports": {
-    ".": "./src/core/ReactNativeWebviewBridge.ts",
+    ".": "./src/core/ReactNativeWebViewBridge.ts",
     "./plugins/navigationPlugin": "./src/core/plugins/navigationPlugin.ts",
     "./plugins/versionHandlingPlugin": "./src/core/plugins/versionHandlingPlugin.ts"
   },
   "scripts": {
     "test": "jest --config ./jest.config.ts --passWithNoTests"
+  },
+  "dependencies": {
+    "react-webview-bridge": "workspace:*",
+    "webview-bridge-core": "workspace:*"
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "^7.25.4",
@@ -26,9 +30,5 @@
   "peerDependencies": {
     "@react-navigation/native": "^6.1.18",
     "react-native-webview": "^13.12.2"
-  },
-  "dependencies": {
-    "react-webview-bridge": "workspace:*",
-    "webview-bridge-core": "workspace:*"
   }
 }
