@@ -28,23 +28,26 @@ export default function Home() {
 
   return (
     <main style={styles.container}>
-      <h1 style={styles.header}>웹</h1>
+      <h1 style={styles.title}>웹</h1>
       <section style={styles.messageSection}>
-        <h4 style={styles.subHeader}>수신한 메시지</h4>
+        <h4 style={styles.subTitle}>수신한 메시지</h4>
         {message ? (
           <p style={styles.messageText}>{message}</p>
         ) : (
           <p style={styles.messageText}>없음</p>
         )}
       </section>
-      <button onClick={handleClickPostMessageToRN} style={styles.sendButton}>
+      <button
+        onClick={handleClickPostMessageToRN}
+        style={styles.postMessageButton}
+      >
         {`웹 -> 앱 메시지 전송`}
       </button>
-      <section style={styles.statusSection}>
+      <section style={styles.messageTransmissionStatusSection}>
         {messageTransmissionSuccess !== null && (
           <>
-            <h4 style={styles.subHeader}>전송 상태</h4>
-            <span style={styles.statusText}>
+            <h4 style={styles.subTitle}>전송 상태</h4>
+            <span style={styles.messageTransmissionStatusText}>
               {messageTransmissionSuccess ? "성공" : "실패"}
             </span>
           </>
@@ -64,13 +67,13 @@ const styles = {
     padding: "20px",
     height: "100vh",
   },
-  header: {
+  title: {
     fontSize: "24px",
     fontWeight: "bold",
     color: "#333",
     marginBottom: "10px",
   },
-  subHeader: {
+  subTitle: {
     fontSize: "18px",
     fontWeight: "700",
     color: "#555",
@@ -85,7 +88,7 @@ const styles = {
     fontSize: "16px",
     color: "#000",
   },
-  sendButton: {
+  postMessageButton: {
     backgroundColor: "#007BFF",
     color: "#FFFFFF",
     padding: "10px 15px",
@@ -96,13 +99,13 @@ const styles = {
     transition: "background-color 0.3s ease",
     marginTop: "5px",
   },
-  statusSection: {
+  messageTransmissionStatusSection: {
     minHeight: "120px",
     paddingTop: "5px",
     width: "100%",
     textAlign: "center" as "center",
   },
-  statusText: {
+  messageTransmissionStatusText: {
     fontSize: "16px",
     marginTop: "5px",
   },
