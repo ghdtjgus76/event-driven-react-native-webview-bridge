@@ -1,7 +1,6 @@
 {
   "name": "webview-bridge-core",
   "private": true,
-  "scripts": {},
   "exports": {
     "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",
     "./core/Plugin": "./src/core/Plugin.ts",
@@ -11,8 +10,12 @@
     "./types/bridge": "./src/types/bridge.ts",
     "./types/message": "./src/types/message.ts"
   },
+  "scripts": {},
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "react-native-webview": "^13.12.2"
   }
 }

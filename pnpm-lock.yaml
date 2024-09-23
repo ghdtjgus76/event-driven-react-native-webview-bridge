@@ -235,6 +235,10 @@ importers:
   packages/typescript-config: {}
 
   packages/webview-bridge-core:
+    dependencies:
+      react-native-webview:
+        specifier: ^13.12.2
+        version: 13.12.2(react-native@0.75.3)(react@18.3.1)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
