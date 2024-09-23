@@ -14,9 +14,7 @@ class ReactNativeMessageEventHandler extends BaseMessageEventHandler {
 
       const handler = this.handlers.get(message.type as string);
 
-      if (handler) {
-        handler(message);
-      }
+      handler?.(message);
     } catch (error) {
       console.error("Failed to handle message:", error);
     }
