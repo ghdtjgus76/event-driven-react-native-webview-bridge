@@ -31,10 +31,6 @@ abstract class BaseMessageEventHandler {
       console.error("Failed to handle message:", error);
     }
   };
-
-  abstract addMessageEventListener(): void;
-
-  abstract removeMessageEventListener(): void;
 }
 
 export default BaseMessageEventHandler;
