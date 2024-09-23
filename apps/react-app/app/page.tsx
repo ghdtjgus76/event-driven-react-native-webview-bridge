@@ -1,7 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useEffect } from "react";
+import ReactWebViewBridge from "react-webview-bridge";
 
 export default function Home() {
+  const webviewBridge = ReactWebViewBridge.getInstance();
+
+  useEffect(() => {
+    webviewBridge.onMessage("message1", (message) => {
+      alert(`${message.type}: ${message.data}`);
+    });
+
+    const response = webviewBridge.postMessage({
+      type: "message2",
+      data: "메시지2",
+    });
+    response.then((res) =>
+      alert(`메시지2 전송 상태: ${res.success ? "성공" : "실패"}`)
+    );
+  }, []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
