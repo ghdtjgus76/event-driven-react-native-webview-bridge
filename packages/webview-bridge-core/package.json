@@ -4,7 +4,6 @@
   "exports": {
     "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",
     "./core/Plugin": "./src/core/Plugin.ts",
-    "./plugins/errorHandlingPlugin": "./src/plugins/errorHandlingPlugin.ts",
     "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
     "./utils/environment": "./src/utils/environment.ts",
     "./types/bridge": "./src/types/bridge.ts",
