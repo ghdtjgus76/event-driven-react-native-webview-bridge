@@ -1,4 +1,5 @@
 import BaseMessageEventHandler from "webview-bridge-core/core/BaseMessageEventHandler";
+import { MessagePayload } from "webview-bridge-core/types/message";
 import { detectEnvironment } from "webview-bridge-core/utils/environment";
 
 class ReactMessageEventHandler extends BaseMessageEventHandler {
@@ -8,6 +9,21 @@ class ReactMessageEventHandler extends BaseMessageEventHandler {
     super();
     this.isAndroid = detectEnvironment().isAndroid;
   }
+
+  public handleMessageEvent = (event: MessageEvent) => {
+    try {
+      const { data } = event;
+      const message: MessagePayload = JSON.parse(data);
+
+      const handler = this.handlers.get(message.type as string);
+
+      if (handler) {
+        handler(message);
+      }
+    } catch (error) {
+      console.error("Failed to handle message:", error);
+    }
+  };
 
   public addMessageEventListener() {
     if (this.isAndroid) {

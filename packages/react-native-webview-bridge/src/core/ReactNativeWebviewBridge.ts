@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { WebView } from "react-native-webview";
+import { WebView, WebViewMessageEvent } from "react-native-webview";
 import {
   PluginMap,
   WebViewBridgePluginManager,
@@ -72,6 +72,10 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     handler: MessageHandlerFunction
   ) {
     this.messageEventHandler.addHandler(type, handler);
+  }
+
+  public onMessage(event: WebViewMessageEvent) {
+    this.messageEventHandler.handleMessageEvent(event);
   }
 
   private generateRequestId(): MessagePayload["requestId"] {

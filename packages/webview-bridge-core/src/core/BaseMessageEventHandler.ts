@@ -17,20 +17,7 @@ abstract class BaseMessageEventHandler {
     }
   }
 
-  protected handleMessageEvent = (event: MessageEvent) => {
-    try {
-      const { data } = event;
-      const message: MessagePayload = JSON.parse(data);
-
-      const handler = this.handlers.get(message.type as string);
-
-      if (handler) {
-        handler(message);
-      }
-    } catch (error) {
-      console.error("Failed to handle message:", error);
-    }
-  };
+  abstract handleMessageEvent(event: unknown): void;
 }
 
 export default BaseMessageEventHandler;
