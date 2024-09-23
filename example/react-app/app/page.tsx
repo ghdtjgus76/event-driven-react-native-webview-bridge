@@ -71,7 +71,7 @@ const styles = {
     fontSize: "24px",
     fontWeight: "bold",
     color: "#333",
-    marginBottom: "10px",
+    marginBottom: "-10px",
   },
   subTitle: {
     fontSize: "18px",
@@ -82,7 +82,6 @@ const styles = {
   messageSection: {
     width: "100%",
     textAlign: "center" as "center",
-    margin: "5px 0",
   },
   messageText: {
     fontSize: "16px",
