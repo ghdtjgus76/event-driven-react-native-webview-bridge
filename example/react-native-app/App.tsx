@@ -1,12 +1,15 @@
-import React, {useRef} from 'react';
-import {Alert, Dimensions, SafeAreaView, StyleSheet} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {WebView, WebViewMessageEvent} from 'react-native-webview';
 import ReactNativeWebViewBridge from 'react-native-webview-bridge';
 
-const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 const App = () => {
+  const [message, setMessage] = useState('');
+  const [messageTransmissionSuccess, setMessageTransmissionSuccess] =
+    useState(false);
+
   const webViewRef = useRef<WebView | null>(null);
   const webViewBridge = ReactNativeWebViewBridge.getInstance();
 
@@ -15,12 +18,10 @@ const App = () => {
       type: 'message1',
       data: '메시지1',
     });
-    response.then(res =>
-      Alert.alert(`앱 -> 웹 메시지1 전송 상태: ${res.success ? '성공' : '실패'}`),
-    );
+    response.then(res => setMessageTransmissionSuccess(res.success));
 
     webViewBridge.addMessageHandler('message2', message =>
-      Alert.alert(`웹 -> 앱 ${message.type}: ${message.data}`),
+      setMessage(`웹 -> 앱 ${message.type}: ${message.data}`),
     );
   };
 
@@ -30,14 +31,24 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <WebView
-        ref={webViewRef}
-        javaScriptEnabled={true}
-        style={styles.webview}
-        source={{uri: 'http://192.168.200.103:3000/'}}
-        onLoad={onWebViewLoad}
-        onMessage={onMessage}
-      />
+      <View style={styles.webviewContainer}>
+        <WebView
+          ref={webViewRef}
+          javaScriptEnabled={true}
+          style={styles.webview}
+          source={{uri: 'http://192.168.200.102:3000/'}}
+          onLoad={onWebViewLoad}
+          onMessage={onMessage}
+        />
+      </View>
+      <View style={styles.separator} />
+      <View style={styles.appContainer}>
+        <Text style={styles.header}>앱</Text>
+        <Text style={styles.text}>{message}</Text>
+        <Text style={styles.text}>{`앱 -> 웹 메시지1 전송 상태: ${
+          messageTransmissionSuccess ? '성공' : '실패'
+        }`}</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -45,13 +56,35 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  },
+  webviewContainer: {
+    height: '50%',
+  },
+  appContainer: {
+    height: '50%',
   },
   webview: {
-    flex: 1,
     width: deviceWidth,
-    height: deviceHeight - 100,
+    height: '100%',
+  },
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#000',
+    marginVertical: 0,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+    color: '#000',
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginVertical: 10,
+    color: '#000',
   },
 });
 
