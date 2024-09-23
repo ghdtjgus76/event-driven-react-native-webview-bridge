@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     webViewBridge.onMessage("message1", (message) => {
-      alert(`${message.type}: ${message.data}`);
+      alert(`앱 -> 웹 ${message.type}: ${message.data}`);
     });
 
     const response = webViewBridge.postMessage({
@@ -18,7 +18,7 @@ export default function Home() {
       data: "메시지2",
     });
     response.then((res) =>
-      alert(`메시지2 전송 상태: ${res.success ? "성공" : "실패"}`)
+      alert(`웹 -> 앱 메시지2 전송 상태: ${res.success ? "성공" : "실패"}`)
     );
   }, []);
 

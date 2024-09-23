@@ -16,11 +16,11 @@ const App = () => {
       data: '메시지1',
     });
     response.then(res =>
-      Alert.alert(`메시지1 전송 상태: ${res.success ? '성공' : '실패'}`),
+      Alert.alert(`앱 -> 웹 메시지1 전송 상태: ${res.success ? '성공' : '실패'}`),
     );
 
     webViewBridge.addMessageHandler('message2', message =>
-      Alert.alert(`${message.type}: ${message.data}`),
+      Alert.alert(`웹 -> 앱 ${message.type}: ${message.data}`),
     );
   };
 
