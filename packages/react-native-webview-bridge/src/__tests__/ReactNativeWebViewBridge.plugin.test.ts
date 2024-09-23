@@ -1,6 +1,6 @@
 import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
 import { errorHandlingPlugin } from "webview-bridge-core/plugins/errorHandlingPlugin";
-import ReactNativeWebViewBridge from "../core/ReactNativeWebviewBridge";
+import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
 import { navigationPlugin } from "../plugins/navigationPlugin";
 import { versionHandlingPlugin } from "../plugins/versionHandlingPlugin";
 
