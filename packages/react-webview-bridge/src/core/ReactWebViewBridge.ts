@@ -1,5 +1,8 @@
 import { MessageHandlerFunction } from "webview-bridge-core/core/BaseMessageEventHandler";
-import { PluginMap, WebViewBridgePluginManager } from "webview-bridge-core/core/Plugin";
+import {
+  PluginMap,
+  WebViewBridgePluginManager,
+} from "webview-bridge-core/core/Plugin";
 import { MessagePayload } from "webview-bridge-core/types/message";
 import { WebViewBridgeOptions } from "webview-bridge-core/types/bridge";
 
@@ -40,6 +43,10 @@ class ReactWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
+  public isReactNativeWebView() {
+    return !!window.ReactNativeWebView;
+  }
+
   public postMessage(message: {
     type: MessagePayload["type"];
     data: MessagePayload["data"];
@@ -50,7 +57,7 @@ class ReactWebViewBridge<P extends PluginMap> {
     return new Promise((resolve, reject) => {
       try {
         if (
-          window.ReactNativeWebView &&
+          this.isReactNativeWebView() &&
           typeof window.ReactNativeWebView.postMessage === "function"
         ) {
           window.ReactNativeWebView.postMessage(requestMessage);
