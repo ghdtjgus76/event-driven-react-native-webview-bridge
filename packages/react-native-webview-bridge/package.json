@@ -1,11 +1,11 @@
 {
   "name": "react-native-webview-bridge",
   "private": true,
-  "main": "./src/core/ReactNativeWebViewBridge.ts",
   "exports": {
     ".": "./src/core/ReactNativeWebViewBridge.ts",
-    "./plugins/navigationPlugin": "./src/core/plugins/navigationPlugin.ts",
-    "./plugins/versionHandlingPlugin": "./src/core/plugins/versionHandlingPlugin.ts"
+    "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
+    "./plugins/navigationPlugin": "./src/plugins/navigationPlugin.ts",
+    "./plugins/versionHandlingPlugin": "./src/plugins/versionHandlingPlugin.ts"
   },
   "scripts": {
     "test": "jest --config ./jest.config.ts --passWithNoTests"
