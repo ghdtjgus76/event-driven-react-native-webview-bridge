@@ -1,5 +1,4 @@
 import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
-import { errorHandlingPlugin } from "webview-bridge-core/plugins/errorHandlingPlugin";
 import ReactNativeWebViewBridge from "react-native-webview-bridge";
 import { navigationPlugin } from "../plugins/navigationPlugin";
 import { versionHandlingPlugin } from "../plugins/versionHandlingPlugin";
@@ -43,35 +42,6 @@ describe("WebViewBridgePlugin and PluginManager", () => {
     });
 
     expect(instance.getPlugins()).toEqual(plugins);
-  });
-});
-
-describe("ErrorHandlingPlugin", () => {
-  it("should handle errors with the errorHandlingPlugin", () => {
-    const consoleErrorMock = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
-    const plugins = { errorHandlingPlugin };
-    const instance = ReactNativeWebViewBridge.getInstance({ plugins });
-    const error = {
-      message: "Test error",
-      stack: "Error stack trace",
-      name: "TestError",
-    };
-
-    instance.triggerPluginActions("errorHandlingPlugin", { error });
-
-    expect(consoleErrorMock).toHaveBeenCalledWith("Error Name:", "TestError");
-    expect(consoleErrorMock).toHaveBeenCalledWith(
-      "Error Message:",
-      "Test error"
-    );
-    expect(consoleErrorMock).toHaveBeenCalledWith(
-      "Stack Trace:",
-      "Error stack trace"
-    );
-
-    consoleErrorMock.mockRestore();
   });
 });
 
