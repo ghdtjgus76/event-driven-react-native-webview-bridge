@@ -3,11 +3,12 @@ import { MessagePayload } from "webview-bridge-core/types/message";
 import { detectEnvironment } from "webview-bridge-core/utils/environment";
 
 class ReactMessageEventHandler extends BaseMessageEventHandler {
-  private isAndroid: boolean;
+  private receiver: Document | Window;
 
   constructor() {
     super();
-    this.isAndroid = detectEnvironment().isAndroid;
+    const { isAndroid } = detectEnvironment();
+    this.receiver = isAndroid ? document : window;
   }
 
   public handleMessageEvent = (event: MessageEvent) => {
@@ -24,19 +25,17 @@ class ReactMessageEventHandler extends BaseMessageEventHandler {
   };
 
   public addMessageEventListener() {
-    if (this.isAndroid) {
-      document.addEventListener("message", this.handleMessageEvent);
-    } else if (typeof window !== "undefined" && window.addEventListener) {
-      window.addEventListener("message", this.handleMessageEvent);
-    }
+    this.receiver.addEventListener(
+      "message",
+      this.handleMessageEvent as EventListener
+    );
   }
 
   public removeMessageEventListener() {
-    if (this.isAndroid) {
-      document.removeEventListener("message", this.handleMessageEvent);
-    } else if (typeof window !== "undefined" && window.removeEventListener) {
-      window.removeEventListener("message", this.handleMessageEvent);
-    }
+    this.receiver.removeEventListener(
+      "message",
+      this.handleMessageEvent as EventListener
+    );
   }
 }
 
