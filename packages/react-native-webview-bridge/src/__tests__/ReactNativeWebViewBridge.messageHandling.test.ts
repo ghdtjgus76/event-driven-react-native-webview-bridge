@@ -1,15 +1,12 @@
 import { RefObject } from "react";
 import WebView from "react-native-webview";
 import { PluginMap } from "webview-bridge-core/core/Plugin";
-import ReactNativeWebViewBridge from "react-native-webview-bridge";
-import ReactNativeMessageEventHandler from "../core/ReactNativeMessageEventHandler";
+import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
 
 describe("ReactNativeWebViewBridge message handling", () => {
   let bridge: ReactNativeWebViewBridge<PluginMap>;
   let mockWebView: Partial<WebView>;
   let webViewRef: RefObject<WebView>;
-  let addMessageEventListenerSpy: jest.SpyInstance;
-  let removeMessageEventListenerSpy: jest.SpyInstance;
 
   beforeEach(() => {
     mockWebView = {
@@ -17,30 +14,12 @@ describe("ReactNativeWebViewBridge message handling", () => {
     };
     webViewRef = { current: mockWebView } as RefObject<WebView>;
 
-    addMessageEventListenerSpy = jest.spyOn(
-      ReactNativeMessageEventHandler.prototype,
-      "addMessageEventListener"
-    );
-    removeMessageEventListenerSpy = jest.spyOn(
-      ReactNativeMessageEventHandler.prototype,
-      "removeMessageEventListener"
-    );
-
     bridge = ReactNativeWebViewBridge.getInstance();
   });
 
   afterEach(() => {
     bridge.cleanup();
     jest.clearAllMocks();
-  });
-
-  it("should initialize the message event listener on instantiation", () => {
-    expect(addMessageEventListenerSpy).toHaveBeenCalled();
-  });
-
-  it("should remove the message event listener on cleanup", () => {
-    bridge.cleanup();
-    expect(removeMessageEventListenerSpy).toHaveBeenCalled();
   });
 
   it("should successfully post a message to the WebView", async () => {
@@ -65,29 +44,40 @@ describe("ReactNativeWebViewBridge message handling", () => {
     const messageData = "test_data";
     const message = { type: messageType, data: messageData };
 
-    const onMessageMock = jest.fn();
-    bridge.onMessage(messageType, onMessageMock);
+    const handleMessageEventMock = jest.fn();
+    bridge.addMessageHandler(messageType, handleMessageEventMock);
 
-    const mockEvent = new MessageEvent("message", {
-      data: JSON.stringify(message),
-    });
+    const mockEvent: any = {
+      nativeEvent: {
+        data: JSON.stringify(message),
+      },
+    };
 
-    window.dispatchEvent(mockEvent);
+    bridge.onMessage(mockEvent);
+    window.dispatchEvent(new MessageEvent("message", mockEvent.nativeEvent));
 
-    expect(onMessageMock).toHaveBeenCalledWith(message);
+    expect(handleMessageEventMock).toHaveBeenCalled();
+    expect(handleMessageEventMock).toHaveBeenCalledWith(message);
   });
 
   it("should not trigger onMessage event if type does not match", () => {
-    const onMessageMock = jest.fn();
-    bridge.onMessage("test_type", onMessageMock);
+    const messageType = "test_type";
+    const messageData = "test_data";
+    const message = { type: "test_type2", data: messageData };
 
-    const mockEvent = new MessageEvent("message", {
-      data: JSON.stringify({ type: "test_type2", data: null }),
-    });
+    const handleMessageEventMock = jest.fn();
+    bridge.addMessageHandler(messageType, handleMessageEventMock);
 
-    window.dispatchEvent(mockEvent);
+    const mockEvent: any = {
+      nativeEvent: {
+        data: JSON.stringify(message),
+      },
+    };
 
-    expect(onMessageMock).not.toHaveBeenCalled();
+    bridge.onMessage(mockEvent);
+    window.dispatchEvent(new MessageEvent("message", mockEvent.nativeEvent));
+
+    expect(handleMessageEventMock).not.toHaveBeenCalled();
   });
 
   it("should reject if postMessage throws an error", async () => {
