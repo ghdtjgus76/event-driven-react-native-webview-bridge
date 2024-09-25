@@ -1,6 +1,7 @@
 {
   "name": "react-native-webview-bridge",
   "private": true,
+  "main": "./src/core/ReactNativeWebViewBridge.ts",
   "exports": {
     ".": "./src/core/ReactNativeWebViewBridge.ts",
     "./plugins/navigationPlugin": "./src/core/plugins/navigationPlugin.ts",

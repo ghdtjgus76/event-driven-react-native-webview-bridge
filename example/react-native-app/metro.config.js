@@ -9,11 +9,10 @@ const path = require('path');
  */
 const config = {
   resolver: {
-    // 공식문서에도 관련 내용이 있음
     unstable_enableSymlinks: true,
     unstable_enablePackageExports: true,
   },
-  watchFolders: [path.join(__dirname, '..', '..')], // 이 부분이 monorepo root의 node_modules를 참조하도록 하는듯
+  watchFolders: [path.join(__dirname, '..', '..')],
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
