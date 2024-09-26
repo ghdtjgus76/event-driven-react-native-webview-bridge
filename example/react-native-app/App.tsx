@@ -19,7 +19,9 @@ const App = () => {
   >(null);
 
   const webViewRef = useRef<WebView | null>(null);
-  const webViewBridge = ReactNativeWebViewBridge.getInstance();
+  const webViewBridge = ReactNativeWebViewBridge.getInstance({
+    webViewRef,
+  });
 
   const onWebViewLoad = () => {
     webViewBridge.addMessageHandler('toRNMessage', message => {
@@ -33,7 +35,7 @@ const App = () => {
   };
 
   const handlePressPostMessageToWebView = async () => {
-    const response = await webViewBridge.postMessage(webViewRef, {
+    const response = await webViewBridge.postMessage({
       type: 'toWebViewMessage',
       data: '메시지1',
     });
@@ -68,7 +70,7 @@ const App = () => {
           <TouchableOpacity
             onPress={handlePressPostMessageToWebView}
             style={styles.button}>
-            <Text style={styles.buttonText}>{`앱 -> 웹 메시지 전송`}</Text>
+            <Text style={styles.buttonText}>{'앱 -> 웹 메시지 전송'}</Text>
           </TouchableOpacity>
           {messageTransmissionSuccess !== null && (
             <>
