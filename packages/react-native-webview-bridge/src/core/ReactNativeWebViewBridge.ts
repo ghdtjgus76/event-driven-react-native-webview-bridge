@@ -18,11 +18,11 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
   private messageQueue: ReactNativeMessageQueue;
   private webViewRef: RefObject<WebView>;
 
-  private constructor(options: WebViewBridgeOptions<P>) {
-    this.pluginManager = new WebViewBridgePluginManager(options?.plugins);
+  private constructor({ plugins, webViewRef }: WebViewBridgeOptions<P>) {
+    this.pluginManager = new WebViewBridgePluginManager(plugins);
     this.messageEventHandler = new ReactNativeMessageEventHandler();
-    this.webViewRef = options.webViewRef;
-    this.messageQueue = new ReactNativeMessageQueue(options.webViewRef);
+    this.webViewRef = webViewRef;
+    this.messageQueue = new ReactNativeMessageQueue(webViewRef);
   }
 
   public cleanup() {
