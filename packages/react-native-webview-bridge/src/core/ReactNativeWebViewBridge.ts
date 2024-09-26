@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { WebView, WebViewMessageEvent } from "react-native-webview";
+import WebView, { WebViewMessageEvent } from "react-native-webview";
 import {
   PluginMap,
   WebViewBridgePluginManager,
@@ -8,16 +8,21 @@ import { MessagePayload } from "webview-bridge-core/types/message";
 import { WebViewBridgeOptions } from "webview-bridge-core/types/bridge";
 import ReactNativeMessageEventHandler from "./ReactNativeMessageEventHandler";
 import { MessageHandlerFunction } from "webview-bridge-core/core/BaseMessageEventHandler";
+import ReactNativeMessageQueue from "./ReactNativeMessageQueue";
 
 class ReactNativeWebViewBridge<P extends PluginMap> {
   private static instance: ReactNativeWebViewBridge<PluginMap> | null = null;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
   private messageEventHandler: ReactNativeMessageEventHandler;
+  private messageQueue: ReactNativeMessageQueue;
+  private webViewRef: RefObject<WebView>;
 
-  private constructor(options?: WebViewBridgeOptions<P>) {
+  private constructor(options: WebViewBridgeOptions<P>) {
     this.pluginManager = new WebViewBridgePluginManager(options?.plugins);
     this.messageEventHandler = new ReactNativeMessageEventHandler();
+    this.webViewRef = options.webViewRef;
+    this.messageQueue = new ReactNativeMessageQueue(options.webViewRef);
   }
 
   public cleanup() {
@@ -25,9 +30,9 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     ReactNativeWebViewBridge.instance = null;
   }
 
-  public static getInstance<P extends PluginMap>(options?: {
-    plugins: P;
-  }): ReactNativeWebViewBridge<P> {
+  public static getInstance<P extends PluginMap>(
+    options: WebViewBridgeOptions<P>
+  ): ReactNativeWebViewBridge<P> {
     if (!this.instance) {
       this.instance = new ReactNativeWebViewBridge(options);
     }
@@ -42,29 +47,13 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
-  public postMessage(
-    webViewRef: RefObject<WebView>,
-    message: {
-      type: MessagePayload["type"];
-      data: MessagePayload["data"];
-    }
-  ): Promise<{ success: boolean }> {
+  public postMessage(message: {
+    type: MessagePayload["type"];
+    data: MessagePayload["data"];
+  }): Promise<{ success: boolean }> {
     const requestId = this.generateRequestId();
-    const requestMessage = JSON.stringify({ ...message, requestId });
 
-    return new Promise((resolve, reject) => {
-      try {
-        if (webViewRef.current) {
-          webViewRef.current.postMessage(requestMessage);
-
-          resolve({ success: true });
-        } else {
-          reject(new Error("WebViewRef is not defined"));
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return this.messageQueue.enqueue({ ...message, requestId });
   }
 
   public addMessageHandler(
