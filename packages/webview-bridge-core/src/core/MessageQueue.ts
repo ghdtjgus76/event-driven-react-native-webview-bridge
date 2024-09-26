@@ -7,6 +7,7 @@ interface QueueItem {
   ) => void;
   reject: (reason?: any) => void;
   attempts: number;
+  priority: number;
 }
 
 abstract class MessageQueue {
@@ -14,11 +15,19 @@ abstract class MessageQueue {
   private processing: boolean = false;
   private maxRetries = 3;
 
-  public enqueue(message: MessagePayload): Promise<{ success: boolean }> {
+  public enqueue(
+    message: MessagePayload,
+    priority: number = 0
+  ): Promise<{ success: boolean }> {
     return new Promise((resolve, reject) => {
-      this.queue.push({ message, resolve, reject, attempts: 0 });
+      this.queue.push({ message, resolve, reject, attempts: 0, priority });
+      this.sortQueue();
       this.processQueue();
     });
+  }
+
+  private sortQueue(): void {
+    this.queue.sort((a, b) => b.priority - a.priority);
   }
 
   private processQueue(): Promise<{ success: boolean }> | undefined {
@@ -29,7 +38,8 @@ abstract class MessageQueue {
     this.processing = true;
 
     while (this.queue.length) {
-      const { message, resolve, reject, attempts } = this.queue.shift()!;
+      const { message, resolve, reject, attempts, priority } =
+        this.queue.shift()!;
 
       try {
         this.handleMessage(message);
@@ -41,7 +51,13 @@ abstract class MessageQueue {
           console.log(
             `Retrying message: ${message.type}, attempt: ${attempts + 1}`
           );
-          this.queue.push({ message, resolve, reject, attempts: attempts + 1 });
+          this.queue.push({
+            message,
+            resolve,
+            reject,
+            attempts: attempts + 1,
+            priority,
+          });
         } else {
           reject({ success: false, error });
         }
