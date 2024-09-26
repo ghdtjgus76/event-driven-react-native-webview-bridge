@@ -2,7 +2,9 @@ import { MessagePayload } from "../types/message";
 
 interface QueueItem {
   message: MessagePayload;
-  resolve: (value: unknown) => void;
+  resolve: (
+    value: { success: boolean } | PromiseLike<{ success: boolean }>
+  ) => void;
   reject: (reason?: any) => void;
   attempts: number;
 }
@@ -12,14 +14,14 @@ abstract class MessageQueue {
   private processing: boolean = false;
   private maxRetries = 3;
 
-  public enqueue(message: MessagePayload): Promise<unknown> {
+  public enqueue(message: MessagePayload): Promise<{ success: boolean }> {
     return new Promise((resolve, reject) => {
       this.queue.push({ message, resolve, reject, attempts: 0 });
       this.processQueue();
     });
   }
 
-  private processQueue() {
+  private processQueue(): Promise<{ success: boolean }> | undefined {
     if (this.processing) {
       return;
     }
@@ -31,7 +33,7 @@ abstract class MessageQueue {
 
       try {
         this.handleMessage(message);
-        resolve(true);
+        resolve({ success: true });
       } catch (error) {
         console.error("Error processing message:", error);
 
@@ -41,7 +43,7 @@ abstract class MessageQueue {
           );
           this.queue.push({ message, resolve, reject, attempts: attempts + 1 });
         } else {
-          reject(error);
+          reject({ success: false, error });
         }
       }
     }
