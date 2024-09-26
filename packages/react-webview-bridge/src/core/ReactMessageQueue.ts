@@ -9,7 +9,7 @@ class ReactMessageQueue extends MessageQueue {
     ) {
       window.ReactNativeWebView.postMessage(JSON.stringify(message));
     } else {
-      new Error(
+      throw new Error(
         "ReactNativeWebView is not defined or postMessage is not a function"
       );
     }
