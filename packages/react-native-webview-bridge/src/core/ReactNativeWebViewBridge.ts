@@ -47,13 +47,17 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
-  public postMessage(message: {
-    type: MessagePayload["type"];
-    data: MessagePayload["data"];
-  }): Promise<{ success: boolean }> {
+  public postMessage(
+    message: {
+      type: MessagePayload["type"];
+      data: MessagePayload["data"];
+    },
+    priority: number = 0
+  ): Promise<{ success: boolean }> {
     const requestId = this.generateRequestId();
+    const requestMessage = { ...message, requestId };
 
-    return this.messageQueue.enqueue({ ...message, requestId });
+    return this.messageQueue.enqueue(requestMessage, priority);
   }
 
   public addMessageHandler(
