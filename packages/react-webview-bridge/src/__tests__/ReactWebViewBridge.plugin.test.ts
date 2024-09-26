@@ -42,10 +42,3 @@ describe("WebViewBridgePlugin and PluginManager", () => {
     expect(instance.getPlugins()).toEqual(plugins);
   });
 });
-
-describe("ErrorHandlingPlugin", () => {
-  afterEach(() => {
-    ReactWebViewBridge.getInstance().cleanup();
-    jest.clearAllMocks();
-  });
-});
