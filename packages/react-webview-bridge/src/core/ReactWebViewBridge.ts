@@ -5,19 +5,21 @@ import {
 } from "webview-bridge-core/core/Plugin";
 import { MessagePayload } from "webview-bridge-core/types/message";
 import { WebViewBridgeOptions } from "webview-bridge-core/types/bridge";
-
 import ReactMessageEventHandler from "./ReactMessageEventHandler";
+import ReactMessageQueue from "./ReactMessageQueue";
 
 class ReactWebViewBridge<P extends PluginMap> {
   private static instance: ReactWebViewBridge<PluginMap> | null = null;
   private pluginManager: WebViewBridgePluginManager<P>;
   private requestId: number = 0;
   private messageEventHandler: ReactMessageEventHandler;
+  private messageQueue: ReactMessageQueue;
 
   private constructor(options?: WebViewBridgeOptions<P>) {
     this.pluginManager = new WebViewBridgePluginManager(options?.plugins);
     this.messageEventHandler = new ReactMessageEventHandler();
     this.messageEventHandler.addMessageEventListener();
+    this.messageQueue = new ReactMessageQueue();
   }
 
   public cleanup() {
@@ -50,30 +52,10 @@ class ReactWebViewBridge<P extends PluginMap> {
   public postMessage(message: {
     type: MessagePayload["type"];
     data: MessagePayload["data"];
-  }): Promise<{ success: boolean }> {
+  }) {
     const requestId = this.generateRequestId();
-    const requestMessage = JSON.stringify({ ...message, requestId });
 
-    return new Promise((resolve, reject) => {
-      try {
-        if (
-          this.isReactNativeWebView() &&
-          typeof window.ReactNativeWebView.postMessage === "function"
-        ) {
-          window.ReactNativeWebView.postMessage(requestMessage);
-
-          resolve({ success: true });
-        } else {
-          reject(
-            new Error(
-              "ReactNativeWebView is not defined or postMessage is not a function"
-            )
-          );
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
+    return this.messageQueue.enqueue({ ...message, requestId });
   }
 
   public onMessage(
