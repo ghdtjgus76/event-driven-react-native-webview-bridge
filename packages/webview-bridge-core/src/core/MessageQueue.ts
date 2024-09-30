@@ -45,7 +45,7 @@ abstract class MessageQueue {
         this.handleMessage(message);
         resolve({ success: true });
       } catch (error) {
-        console.error("Error processing message:", error);
+        console.warn("Error processing message:", error);
 
         if (this.shouldRetry(attempts, error as Error)) {
           console.log(

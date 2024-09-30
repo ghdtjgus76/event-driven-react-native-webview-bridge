@@ -20,7 +20,7 @@ class ReactMessageEventHandler extends BaseMessageEventHandler {
 
       handler?.(message);
     } catch (error) {
-      console.error("Failed to handle message:", error);
+      console.warn("Failed to handle message:", error);
     }
   };
 
