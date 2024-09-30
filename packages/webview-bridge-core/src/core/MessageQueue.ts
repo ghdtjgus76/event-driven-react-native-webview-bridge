@@ -47,7 +47,7 @@ abstract class MessageQueue {
       } catch (error) {
         console.error("Error processing message:", error);
 
-        if (attempts < this.maxRetries) {
+        if (this.shouldRetry(attempts, error as Error)) {
           console.log(
             `Retrying message: ${message.type}, attempt: ${attempts + 1}`
           );
@@ -68,6 +68,14 @@ abstract class MessageQueue {
   }
 
   abstract handleMessage(message: MessagePayload): void;
+
+  private shouldRetry(attempts: number, error: Error): boolean {
+    if (error.message === "WebViewRef is not defined") {
+      return false;
+    }
+
+    return attempts < this.maxRetries;
+  }
 }
 
 export default MessageQueue;
