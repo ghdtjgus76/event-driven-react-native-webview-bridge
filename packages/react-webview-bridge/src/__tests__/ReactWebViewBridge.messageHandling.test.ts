@@ -113,7 +113,7 @@ describe("ReactWebViewBridge message handling", () => {
     expect(onMessageMock).not.toHaveBeenCalled();
   });
 
-  it("should retry postMessage when it fails ", async () => {
+  it("should retry postMessage when it fails (retries three times on failure before ultimately failing)", async () => {
     const postMessageMock = jest.fn(() => {
       throw new Error("Test error2");
     });
@@ -131,5 +131,29 @@ describe("ReactWebViewBridge message handling", () => {
     );
 
     expect(postMessageMock).toHaveBeenCalledTimes(4);
+  });
+
+  it("should retry postMessage when it fails (retries three times on failure before succeeding)", async () => {
+    let callCount = 0;
+    const postMessageMock = jest.fn(() => {
+      callCount++;
+      if (callCount < 3) {
+        throw new Error("Test error");
+      }
+      return;
+    });
+    (window as any).ReactNativeWebView = { postMessage: postMessageMock };
+    const message = {
+      type: "test_type",
+      data: "test_data",
+    };
+
+    await expect(bridge.postMessage(message)).resolves.toEqual(
+      expect.objectContaining({
+        success: true,
+      })
+    );
+
+    expect(postMessageMock).toHaveBeenCalledTimes(3);
   });
 });
