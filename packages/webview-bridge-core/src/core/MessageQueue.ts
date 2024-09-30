@@ -72,7 +72,8 @@ abstract class MessageQueue {
   private shouldRetry(attempts: number, error: Error): boolean {
     if (
       error.message === "WebViewRef is not defined" ||
-      "ReactNativeWebView is not defined or postMessage is not a function"
+      error.message ===
+        "window.ReactNativeWebView is not defined or postMessage is not a function"
     ) {
       return false;
     }
