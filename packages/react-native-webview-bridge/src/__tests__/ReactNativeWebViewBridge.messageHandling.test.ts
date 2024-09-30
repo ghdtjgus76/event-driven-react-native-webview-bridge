@@ -1,6 +1,5 @@
 import { RefObject } from "react";
 import WebView from "react-native-webview";
-import { PluginMap } from "webview-bridge-core/core/Plugin";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
 
 describe("ReactNativeWebViewBridge message handling", () => {
@@ -124,7 +123,7 @@ describe("ReactNativeWebViewBridge message handling", () => {
     jest.clearAllMocks();
   });
 
-  it("should retry postMessage when it fails ", async () => {
+  it("should retry postMessage when it fails", async () => {
     const mockWebView: Partial<WebView> = {
       postMessage: jest.fn(),
     };
@@ -145,9 +144,11 @@ describe("ReactNativeWebViewBridge message handling", () => {
       })
     );
 
-    expect(await bridge.postMessage(message)).toHaveBeenCalledTimes(4);
+    expect(postMessageMock).toHaveBeenCalledTimes(4);
 
     ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
     jest.clearAllMocks();
   });
+
+  it("should retry postMessage when it fails", async () => {});
 });
