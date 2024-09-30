@@ -21,10 +21,11 @@ describe("ReactNativeWebViewBridge message handling", () => {
     jest.clearAllMocks();
   });
 
-  it("should reject if WebViewRef is not defined", async () => {
+  it("should reject if WebViewRef is not defined without retrying same postMessage logic", async () => {
     const webViewRef = { current: null };
     const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
     const message = { type: "test_type", data: "test_data" };
+    bridge.postMessage = jest.fn(bridge.postMessage.bind(bridge));
 
     await expect(bridge.postMessage(message)).rejects.toEqual(
       expect.objectContaining({
@@ -32,6 +33,8 @@ describe("ReactNativeWebViewBridge message handling", () => {
         error: new Error("WebViewRef is not defined"),
       })
     );
+
+    expect(bridge.postMessage).toHaveBeenCalledTimes(1);
 
     ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
     jest.clearAllMocks();
@@ -116,6 +119,33 @@ describe("ReactNativeWebViewBridge message handling", () => {
         error: new Error("Test error"),
       })
     );
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
+  });
+
+  it("should retry postMessage when it fails ", async () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
+    bridge.postMessage = jest.fn(bridge.postMessage.bind(bridge));
+    const message = { type: "test_type", data: "test_data" };
+
+    const postMessageMock = jest.fn(() => {
+      throw new Error("Test error");
+    });
+    mockWebView.postMessage = postMessageMock;
+
+    await expect(bridge.postMessage(message)).rejects.toEqual(
+      expect.objectContaining({
+        success: false,
+        error: new Error("Test error"),
+      })
+    );
+
+    expect(await bridge.postMessage(message)).toHaveBeenCalledTimes(4);
 
     ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
     jest.clearAllMocks();
