@@ -47,24 +47,27 @@ describe("ReactWebViewBridge message handling", () => {
     });
   });
 
-  it("should reject if ReactNativeWebView is not defined", async () => {
+  it("should reject if window.ReactNativeWebView is not defined without retrying same postMessage logic", async () => {
     (window as any).ReactNativeWebView = undefined;
     const message = {
       type: "test_type",
       data: "test_data",
     };
+    bridge.postMessage = jest.fn(bridge.postMessage.bind(bridge));
 
     await expect(bridge.postMessage(message)).rejects.toEqual(
       expect.objectContaining({
         success: false,
         error: new Error(
-          "ReactNativeWebView is not defined or postMessage is not a function"
+          "window.ReactNativeWebView is not defined or postMessage is not a function"
         ),
       })
     );
+
+    expect(bridge.postMessage).toHaveBeenCalledTimes(1);
   });
 
-  it("should reject if postMessage throws and error", async () => {
+  it("should reject if postMessage throws an error", async () => {
     const postMessageMock = jest.fn(() => {
       throw new Error("Test error");
     });
@@ -108,5 +111,25 @@ describe("ReactWebViewBridge message handling", () => {
     window.dispatchEvent(mockEvent);
 
     expect(onMessageMock).not.toHaveBeenCalled();
+  });
+
+  it("should retry postMessage when it fails ", async () => {
+    const postMessageMock = jest.fn(() => {
+      throw new Error("Test error2");
+    });
+    (window as any).ReactNativeWebView = { postMessage: postMessageMock };
+    const message = {
+      type: "test_type",
+      data: "test_data",
+    };
+
+    await expect(bridge.postMessage(message)).rejects.toEqual(
+      expect.objectContaining({
+        success: false,
+        error: new Error("Test error2"),
+      })
+    );
+
+    expect(postMessageMock).toHaveBeenCalledTimes(4);
   });
 });
