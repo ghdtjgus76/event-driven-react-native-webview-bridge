@@ -54,8 +54,13 @@ describe("ReactWebViewBridge message handling", () => {
       data: "test_data",
     };
 
-    await expect(bridge.postMessage(message)).rejects.toThrow(
-      "ReactNativeWebView is not defined or postMessage is not a function"
+    await expect(bridge.postMessage(message)).rejects.toEqual(
+      expect.objectContaining({
+        success: false,
+        error: new Error(
+          "ReactNativeWebView is not defined or postMessage is not a function"
+        ),
+      })
     );
   });
 
@@ -69,7 +74,12 @@ describe("ReactWebViewBridge message handling", () => {
       data: "test_data",
     };
 
-    await expect(bridge.postMessage(message)).rejects.toThrow("Test error");
+    await expect(bridge.postMessage(message)).rejects.toEqual(
+      expect.objectContaining({
+        success: false,
+        error: new Error("Test error"),
+      })
+    );
   });
 
   it("should trigger the correct onMessage handler when message event occurs", async () => {
