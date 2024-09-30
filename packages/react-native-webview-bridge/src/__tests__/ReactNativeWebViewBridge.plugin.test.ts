@@ -2,34 +2,51 @@ import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
 import ReactNativeWebViewBridge from "react-native-webview-bridge";
 import { navigationPlugin } from "../plugins/navigationPlugin";
 import { versionHandlingPlugin } from "../plugins/versionHandlingPlugin";
+import { RefObject } from "react";
+import { WebView } from "react-native-webview";
 
 describe("WebViewBridgePlugin and PluginManager", () => {
-  afterEach(() => {
-    ReactNativeWebViewBridge.getInstance().cleanup();
-    jest.clearAllMocks();
-  });
-
   it("should register and execute plugins correctly", () => {
     const pluginFunction = jest.fn();
     const logMessagePlugin = new WebViewBridgePlugin(pluginFunction);
     const plugins = { logMessagePlugin };
-    const instance = ReactNativeWebViewBridge.getInstance({ plugins });
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const instance = ReactNativeWebViewBridge.getInstance({
+      plugins,
+      webViewRef,
+    });
 
     instance.triggerPluginActions("logMessagePlugin", "message");
 
     expect(pluginFunction).toHaveBeenCalled();
     expect(pluginFunction).toHaveBeenCalledWith("message");
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should throw an error if a non-existent plugin is triggered", () => {
     const pluginFunction = jest.fn();
     const logMessagePlugin = new WebViewBridgePlugin(pluginFunction);
     const plugins = { logMessagePlugin };
-    const instance = ReactNativeWebViewBridge.getInstance({ plugins });
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const instance = ReactNativeWebViewBridge.getInstance({
+      plugins,
+      webViewRef,
+    });
 
     expect(() => {
       instance.triggerPluginActions("nonExistingPlugin" as any);
     }).toThrow(new Error("Plugin nonExistingPlugin not found"));
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should return the correct plugins list", () => {
@@ -37,20 +54,23 @@ describe("WebViewBridgePlugin and PluginManager", () => {
       console.log(message)
     );
     const plugins = { logMessagePlugin };
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
     const instance = ReactNativeWebViewBridge.getInstance({
       plugins,
+      webViewRef,
     });
 
     expect(instance.getPlugins()).toEqual(plugins);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 });
 
 describe("NavigationPlugin", () => {
-  afterEach(() => {
-    ReactNativeWebViewBridge.getInstance().cleanup();
-    jest.clearAllMocks();
-  });
-
   it("should handle push navigation correctly", () => {
     const navigateMock = jest.fn();
     const navigation = { navigate: navigateMock };
@@ -133,11 +153,6 @@ describe("NavigationPlugin", () => {
 });
 
 describe("VersionHandlingPlugin", () => {
-  afterEach(() => {
-    ReactNativeWebViewBridge.getInstance().cleanup();
-    jest.clearAllMocks();
-  });
-
   it("should execute the correct handler for the current app version", () => {
     const currentVersion = "2.0.4";
     const consoleLogMock = jest

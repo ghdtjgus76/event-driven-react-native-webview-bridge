@@ -1,47 +1,82 @@
 import ReactWebViewBridge from "react-webview-bridge";
 import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
 import ReactNativeWebViewBridge from "react-native-webview-bridge";
+import { RefObject } from "react";
+import WebView from "react-native-webview";
 
 describe("ReactNativeWebViewBridge Singleton", () => {
-  afterEach(() => {
-    ReactNativeWebViewBridge.getInstance().cleanup();
+  it("should create a singleton instance of ReactNativeWebViewBridge", () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+
+    const instance = ReactNativeWebViewBridge.getInstance({ webViewRef });
+
+    expect(instance).not.toBeNull();
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
     jest.clearAllMocks();
   });
 
-  it("should create a singleton instance of ReactNativeWebViewBridge", () => {
-    const instance = ReactNativeWebViewBridge.getInstance();
-
-    expect(instance).not.toBeNull();
-  });
-
   it("should return the same instance when called multiple times", () => {
-    const instance1 = ReactNativeWebViewBridge.getInstance();
-    const instance2 = ReactNativeWebViewBridge.getInstance();
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+
+    const instance1 = ReactNativeWebViewBridge.getInstance({ webViewRef });
+    const instance2 = ReactNativeWebViewBridge.getInstance({ webViewRef });
 
     expect(instance1).toBe(instance2);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should create a new instance after cleanup", () => {
-    const instance1 = ReactNativeWebViewBridge.getInstance();
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+
+    const instance1 = ReactNativeWebViewBridge.getInstance({ webViewRef });
     instance1.cleanup();
-    const instance2 = ReactNativeWebViewBridge.getInstance();
+    const instance2 = ReactNativeWebViewBridge.getInstance({ webViewRef });
 
     expect(instance1).not.toBe(instance2);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should apply initial options correctly", () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+
     const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
       console.log(message)
     );
     const plugins = { logMessagePlugin };
     const instance = ReactNativeWebViewBridge.getInstance({
       plugins,
+      webViewRef,
     });
 
     expect(instance.getPlugins()).toEqual(plugins);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should retain plugin configuration after multiple getInstance calls", () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+
     const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
       console.log(message)
     );
@@ -52,5 +87,8 @@ describe("ReactNativeWebViewBridge Singleton", () => {
     const instance2 = ReactWebViewBridge.getInstance();
 
     expect(instance2.getPlugins()).toEqual(plugins);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 });

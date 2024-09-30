@@ -4,42 +4,46 @@ import { PluginMap } from "webview-bridge-core/core/Plugin";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
 
 describe("ReactNativeWebViewBridge message handling", () => {
-  let bridge: ReactNativeWebViewBridge<PluginMap>;
-  let mockWebView: Partial<WebView>;
-  let webViewRef: RefObject<WebView>;
-
-  beforeEach(() => {
-    mockWebView = {
+  it("should successfully post a message to the WebView", async () => {
+    const mockWebView: Partial<WebView> = {
       postMessage: jest.fn(),
     };
-    webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
 
-    bridge = ReactNativeWebViewBridge.getInstance();
-  });
+    const message = { type: "test_type", data: "test_data" };
 
-  afterEach(() => {
-    bridge.cleanup();
+    await bridge.postMessage(message);
+
+    expect(mockWebView.postMessage).toHaveBeenCalled();
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
     jest.clearAllMocks();
   });
 
-  it("should successfully post a message to the WebView", async () => {
-    const message = { type: "test_type", data: "test_data" };
-
-    await bridge.postMessage(webViewRef, message);
-
-    expect(mockWebView.postMessage).toHaveBeenCalled();
-  });
-
   it("should reject if WebViewRef is not defined", async () => {
-    webViewRef = { current: null };
+    const webViewRef = { current: null };
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
     const message = { type: "test_type", data: "test_data" };
 
-    await expect(bridge.postMessage(webViewRef, message)).rejects.toThrow(
-      "WebViewRef is not defined"
+    await expect(bridge.postMessage(message)).rejects.toEqual(
+      expect.objectContaining({
+        success: false,
+        error: new Error("WebViewRef is not defined"),
+      })
     );
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should trigger the correct onMessage handler when message event occurs", () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
+
     const messageType = "test_type";
     const messageData = "test_data";
     const message = { type: messageType, data: messageData };
@@ -58,9 +62,18 @@ describe("ReactNativeWebViewBridge message handling", () => {
 
     expect(handleMessageEventMock).toHaveBeenCalled();
     expect(handleMessageEventMock).toHaveBeenCalledWith(message);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should not trigger onMessage event if type does not match", () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
+
     const messageType = "test_type";
     const messageData = "test_data";
     const message = { type: "test_type2", data: messageData };
@@ -78,9 +91,18 @@ describe("ReactNativeWebViewBridge message handling", () => {
     window.dispatchEvent(new MessageEvent("message", mockEvent.nativeEvent));
 
     expect(handleMessageEventMock).not.toHaveBeenCalled();
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 
   it("should reject if postMessage throws an error", async () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
+
     const postMessageMock = jest.fn(() => {
       throw new Error("Test error");
     });
@@ -88,8 +110,14 @@ describe("ReactNativeWebViewBridge message handling", () => {
 
     const message = { type: "test_type", data: "test_data" };
 
-    await expect(bridge.postMessage(webViewRef, message)).rejects.toThrow(
-      "Test error"
+    await expect(bridge.postMessage(message)).rejects.toEqual(
+      expect.objectContaining({
+        success: false,
+        error: new Error("Test error"),
+      })
     );
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
   });
 });
