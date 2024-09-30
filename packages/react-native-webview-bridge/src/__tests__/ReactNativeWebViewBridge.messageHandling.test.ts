@@ -123,7 +123,7 @@ describe("ReactNativeWebViewBridge message handling", () => {
     jest.clearAllMocks();
   });
 
-  it("should retry postMessage when it fails", async () => {
+  it("should retry postMessage when it fails (retries three times on failure before ultimately failing)", async () => {
     const mockWebView: Partial<WebView> = {
       postMessage: jest.fn(),
     };
@@ -150,5 +150,34 @@ describe("ReactNativeWebViewBridge message handling", () => {
     jest.clearAllMocks();
   });
 
-  it("should retry postMessage when it fails", async () => {});
+  it("should retry postMessage when it fails (retries three times on failure before succeeding)", async () => {
+    const mockWebView: Partial<WebView> = {
+      postMessage: jest.fn(),
+    };
+    const webViewRef = { current: mockWebView } as RefObject<WebView>;
+    const bridge = ReactNativeWebViewBridge.getInstance({ webViewRef });
+    bridge.postMessage = jest.fn(bridge.postMessage.bind(bridge));
+    const message = { type: "test_type", data: "test_data" };
+    let callCount = 0;
+
+    const postMessageMock = jest.fn(() => {
+      callCount++;
+      if (callCount < 3) {
+        throw new Error("Test error");
+      }
+      return;
+    });
+    mockWebView.postMessage = postMessageMock;
+
+    await expect(bridge.postMessage(message)).resolves.toEqual(
+      expect.objectContaining({
+        success: true,
+      })
+    );
+
+    expect(postMessageMock).toHaveBeenCalledTimes(3);
+
+    ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
+    jest.clearAllMocks();
+  });
 });
