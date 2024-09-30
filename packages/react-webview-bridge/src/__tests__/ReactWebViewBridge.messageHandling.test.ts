@@ -156,4 +156,8 @@ describe("ReactWebViewBridge message handling", () => {
 
     expect(postMessageMock).toHaveBeenCalledTimes(3);
   });
+
+  it("should process messages in order of priority (higher priority first)", () => {});
+
+  it("should handle messages with equal priority in the order they were enqueued", () => {});
 });
