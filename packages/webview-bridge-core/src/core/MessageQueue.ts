@@ -14,6 +14,8 @@ abstract class MessageQueue {
   private queue: QueueItem[] = [];
   private processing: boolean = false;
   private maxRetries = 3;
+  private batchInterval = 100;
+  private batchTimeout: NodeJS.Timeout | null = null;
 
   public enqueue(
     message: MessagePayload,
@@ -22,15 +24,26 @@ abstract class MessageQueue {
     return new Promise((resolve, reject) => {
       this.queue.push({ message, resolve, reject, attempts: 0, priority });
       this.sortQueue();
-      this.processQueue();
+
+      if (!this.batchTimeout) {
+        this.startBatchProcessing();
+      }
     });
+  }
+
+  private startBatchProcessing() {
+    this.batchTimeout = setTimeout(() => {
+      this.processQueue();
+      this.batchTimeout = null;
+    }, this.batchInterval);
   }
 
   private sortQueue(): void {
     this.queue.sort((a, b) => b.priority - a.priority);
   }
 
-  private processQueue(): Promise<{ success: boolean }> | undefined {
+  private processQueue(): void {
+    console.log(this.queue);
     if (this.processing) {
       return;
     }
@@ -42,14 +55,15 @@ abstract class MessageQueue {
         this.queue.shift()!;
 
       try {
+        console.log(message)
         this.handleMessage(message);
         resolve({ success: true });
       } catch (error) {
-        console.warn("Error processing message:", error);
+        console.warn("메시지 처리 중 오류 발생:", error);
 
         if (this.shouldRetry(attempts, error as Error)) {
           console.log(
-            `Retrying message: ${message.type}, attempt: ${attempts + 1}`
+            `메시지 재시도: ${message.type}, 시도 횟수: ${attempts + 1}`
           );
           this.queue.push({
             message,
