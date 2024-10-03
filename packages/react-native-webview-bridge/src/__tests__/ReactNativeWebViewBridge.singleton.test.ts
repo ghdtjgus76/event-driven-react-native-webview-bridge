@@ -1,8 +1,8 @@
 import ReactWebViewBridge from "react-webview-bridge";
 import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
-import ReactNativeWebViewBridge from "react-native-webview-bridge";
 import { RefObject } from "react";
 import WebView from "react-native-webview";
+import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
 
 describe("ReactNativeWebViewBridge Singleton", () => {
   it("should create a singleton instance of ReactNativeWebViewBridge", () => {

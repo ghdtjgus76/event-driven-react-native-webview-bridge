@@ -1,9 +1,9 @@
 import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
-import ReactNativeWebViewBridge from "react-native-webview-bridge";
 import { navigationPlugin } from "../plugins/navigationPlugin";
 import { versionHandlingPlugin } from "../plugins/versionHandlingPlugin";
 import { RefObject } from "react";
 import { WebView } from "react-native-webview";
+import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
 
 describe("WebViewBridgePlugin and PluginManager", () => {
   it("should register and execute plugins correctly", () => {
