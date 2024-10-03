@@ -43,37 +43,45 @@ abstract class MessageQueue {
     this.queue.sort((a, b) => b.message.timestamp - a.message.timestamp);
   }
 
-  private processQueue(): void {
+  private async processQueue(): Promise<void> {
     if (this.processing) {
       return;
     }
 
     this.processing = true;
 
+    const promises = [];
+
     while (this.queue.length) {
       const { message, resolve, reject, attempts } = this.queue.shift()!;
 
-      try {
-        this.handleMessage(message);
-        resolve({ success: true });
-      } catch (error) {
-        console.warn("메시지 처리 중 오류 발생:", error);
+      promises.push(
+        (async () => {
+          try {
+            this.handleMessage(message);
+            resolve({ success: true });
+          } catch (error) {
+            console.warn("메시지 처리 중 오류 발생:", error);
 
-        if (this.shouldRetry(attempts, error as Error)) {
-          console.log(
-            `메시지 재시도: ${message.type}, 시도 횟수: ${attempts + 1}`
-          );
-          this.queue.push({
-            message,
-            resolve,
-            reject,
-            attempts: attempts + 1,
-          });
-        } else {
-          reject({ success: false, error });
-        }
-      }
+            if (this.shouldRetry(attempts, error as Error)) {
+              console.log(
+                `메시지 재시도: ${message.type}, 시도 횟수: ${attempts + 1}`
+              );
+              this.queue.push({
+                message,
+                resolve,
+                reject,
+                attempts: attempts + 1,
+              });
+            } else {
+              reject({ success: false, error });
+            }
+          }
+        })()
+      );
     }
+
+    await Promise.allSettled(promises);
 
     this.processing = false;
   }
