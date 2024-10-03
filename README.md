@@ -54,6 +54,50 @@ These features make the **event-driven-rn-webview-bridge** a powerful tool for b
 
 ### 📦 Installation
 
+### For React Web Applications
+
+To install the **event-driven-webview-bridge** library for React applications, run one of the following commands:
+
+#### Using npm
+
+```bash
+npm install event-driven-webview-bridge-react
+```
+
+#### Using yarn
+
+```bash
+yarn add event-driven-webview-bridge-react
+```
+
+#### Using pnpm
+
+```bash
+pnpm add event-driven-webview-bridge-react
+```
+
+### For React Native Applications
+
+To install the **event-driven-webview-bridge** library for React Native applications, use one of the following commands:
+
+#### Using npm
+
+```bash
+npm install event-driven-webview-bridge-react-native
+```
+
+#### Using yarn
+
+```bash
+yarn add event-driven-webview-bridge-react-native
+```
+
+#### Using pnpm
+
+```bash
+pnpm add event-driven-webview-bridge-react-native
+```
+
 ---
 
 ### 🤖 Usage
