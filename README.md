@@ -36,7 +36,7 @@ The **event-driven-rn-webview-bridge** library offers a range of features to enh
 
 - **Reliable Message Transmission**: Utilizes a Promise-based approach to provide feedback on message sending results, ensuring reliable data exchange.
 
-- **Sequential and Concurrent Message Handling**: Effectively resolves message ordering issues, allowing both sequential and concurrent processing of messages to meet various application needs.
+- **Sequential and Concurrent Message Handling**: Resolves message ordering issues by sorting based on timestamp for sequential processing, while using Promise.allSettled for concurrent execution to maximize efficiency and speed.
 
 - **Automatic Retry Mechanism**: Implements up to three automatic retries for failed message transmissions due to network issues, ensuring higher reliability in message delivery.
 
@@ -44,17 +44,11 @@ The **event-driven-rn-webview-bridge** library offers a range of features to enh
 
 - **Plugin Architecture**: Supports a modular plugin system that allows developers to extend functionalities without altering the core messaging logic, promoting maintainability and flexibility.
 
-- **Easy Integration**: Simple setup and usage, allowing developers to quickly incorporate the bridge into their existing React Native projects.
-
-- **Extensive Documentation**: Comprehensive documentation and examples to assist developers in leveraging the full potential of the library.
-
-These features make the **event-driven-rn-webview-bridge** a powerful tool for building interactive and robust mobile applications that require reliable communication between React Native and WebView.
-
 ---
 
 ### 📦 Installation
 
-### For React Web Applications
+### [event-driven-webview-bridge-react](https://www.npmjs.com/package/event-driven-webview-bridge-react)
 
 To install the **event-driven-webview-bridge-react** library for React applications, run one of the following commands:
 
@@ -76,7 +70,7 @@ yarn add event-driven-webview-bridge-react
 pnpm add event-driven-webview-bridge-react
 ```
 
-### For React Native Applications
+### [event-driven-webview-bridge-react-native](https://www.npmjs.com/package/event-driven-webview-bridge-react-native)
 
 To install the **event-driven-webview-bridge-react-native** library for React Native applications, use one of the following commands:
 
@@ -98,9 +92,10 @@ yarn add event-driven-webview-bridge-react-native
 pnpm add event-driven-webview-bridge-react-native
 ```
 
-### Common
+### [event-driven-webview-bridge-core](https://www.npmjs.com/package/event-driven-webview-bridge-core)
 
-To install the **event-driven-webview-bridge-core** library, which includes support for plugins and common types ..etc, use one of the following commands:
+To install the event-driven-webview-bridge-core library, which includes support for plugins, types, and utility functions, you can use one of the following commands. <br />
+This library can be downloaded if needed.
 
 #### Using npm
 
@@ -162,7 +157,7 @@ const response = await webViewBridge.postMessage({
 });
 ```
 
-### Plugin Usage (Common)
+### Plugin Usage (React or React Native)
 
 ```typescript
 import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
@@ -178,7 +173,7 @@ const webViewBridge = ReactWebViewBridge.getInstance({ plugins });
 webViewBridge.triggerPluginActions("logMessagePlugin", "message");
 ```
 
-### Message Sending: Sequential and Concurrent Handling (Common)
+### Message Sending: Sequential and Concurrent Handling (React or React Native)
 
 ```typescript
 import ReactWebViewBridge from "event-driven-webview-bridge-react";
