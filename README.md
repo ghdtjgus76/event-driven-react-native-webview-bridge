@@ -126,7 +126,7 @@ pnpm add event-driven-webview-bridge-core
 
 ### For React Web Applications
 
-```
+```typescript
 import ReactWebViewBridge from "event-driven-webview-bridge-react";
 
 const webviewBridge = ReactWebViewBridge.getInstance();
@@ -141,12 +141,11 @@ const response = await webViewBridge.postMessage({
   type: "toRNMessage",
   data: "Message 1",
 });
-
 ```
 
 ### For React Native Applications
 
-```
+```typescript
 import ReactNativeWebViewBridge from "event-driven-webview-bridge-react-native";
 
 const webviewBridge = ReactNativeWebViewBridge.getInstance();
@@ -161,12 +160,11 @@ const response = await webViewBridge.postMessage({
   type: "toWebViewMessage",
   data: "Message 2",
 });
-
 ```
 
 ### Plugin Usage (Common)
 
-```
+```typescript
 import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import ReactWebViewBridge from "event-driven-webview-bridge-react";
 
@@ -182,32 +180,43 @@ webViewBridge.triggerPluginActions("logMessagePlugin", "message");
 
 ### Message Sending: Sequential and Concurrent Handling (Common)
 
-```
+```typescript
 import ReactWebViewBridge from "event-driven-webview-bridge-react";
 
 const webviewBridge = ReactWebViewBridge.getInstance();
 
 // Send messages sequentially
-const response1 = await webviewBridge.postMessage({ type: "sequentialMessage1", data: "First message" });
-const response2 = await webviewBridge.postMessage({ type: "sequentialMessage2", data: "Second message" });
+const response1 = await webviewBridge.postMessage({
+  type: "sequentialMessage1",
+  data: "First message",
+});
+const response2 = await webviewBridge.postMessage({
+  type: "sequentialMessage2",
+  data: "Second message",
+});
 
-console.log(response1, response2)
-<!-- { success: true } { success: true } -->
+console.log(response1, response2);
+// { success: true } { success: true }
 
 // Send messages concurrently
 const promises = [
-  webviewBridge.postMessage({ type: "concurrentMessage1", data: "Concurrent message 1" }),
-  webviewBridge.postMessage({ type: "concurrentMessage2", data: "Concurrent message 2" }),
+  webviewBridge.postMessage({
+    type: "concurrentMessage1",
+    data: "Concurrent message 1",
+  }),
+  webviewBridge.postMessage({
+    type: "concurrentMessage2",
+    data: "Concurrent message 2",
+  }),
 ];
 
 const response = await Promise.allSettled(promises);
 
-console.log(response)
-<!-- [
-  { status: "fulfilled", value: { success: true } },
-  { status: "fulfilled", value: { success: true } }
-] -->
-
+console.log(response);
+//[
+//  { status: "fulfilled", value: { success: true } },
+//  { status: "fulfilled", value: { success: true } }
+//]
 ```
 
 ---
