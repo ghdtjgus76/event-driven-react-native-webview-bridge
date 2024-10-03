@@ -1,6 +1,10 @@
 {
   "name": "event-driven-webview-bridge-core",
-  "private": true,
+  "version": "1.0.0",
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "exports": {
     "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",
     "./core/Plugin": "./src/core/Plugin.ts",
@@ -9,11 +13,15 @@
     "./types/bridge": "./src/types/bridge.ts",
     "./types/message": "./src/types/message.ts"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/global-types": "workspace:*"
+    "@types/global-types": "workspace:*",
+    "tsup": "^8.3.0"
   },
   "peerDependencies": {
     "react-native-webview": "^13.12.2"
