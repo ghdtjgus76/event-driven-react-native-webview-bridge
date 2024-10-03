@@ -180,8 +180,4 @@ describe("ReactNativeWebViewBridge message handling", () => {
     ReactNativeWebViewBridge.getInstance({ webViewRef }).cleanup();
     jest.clearAllMocks();
   });
-
-  it("should process messages in order of priority (higher priority first)", () => {});
-
-  it("should handle messages with equal priority in the order they were enqueued", () => {});
 });
