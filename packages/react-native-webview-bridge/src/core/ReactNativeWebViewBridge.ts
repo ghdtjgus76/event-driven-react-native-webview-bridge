@@ -72,6 +72,7 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
   }
 
   private generateRequestId(): MessagePayload["requestId"] {
+    this.requestId = Date.now();
     return `request_${this.requestId++}`;
   }
 
