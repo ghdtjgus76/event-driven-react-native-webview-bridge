@@ -102,6 +102,42 @@ pnpm add event-driven-webview-bridge-react-native
 
 ### 🤖 Usage
 
+### For React Web Applications
+
+```
+const webviewBridge = ReactWebViewBridge.getInstance();
+
+// Listen for messages coming from the React Native applications
+webviewBridge.onMessage("toWebViewMessage", (message) => {
+  setMessage(`App -> Web ${message.type}: ${message.data}`);
+});
+
+// Send a message from the WebView to the React Native applications
+const response = await webViewBridge.postMessage({
+  type: "toRNMessage",
+  data: "Message 1",
+});
+
+```
+
+### For React Native Applications
+
+```
+const webviewBridge = ReactNativeWebViewBridge.getInstance();
+
+// Listen for messages coming from the WebView
+webviewBridge.onMessage("toRNMessage", (message) => {
+  setMessage(`Web -> App ${message.type}: ${message.data}`);
+});
+
+// Send a message from the React Native applications to the WebView
+const response = await webViewBridge.postMessage({
+  type: "toWebViewMessage",
+  data: "Message 2",
+});
+
+```
+
 ---
 
 ## 🤝 Contributing
