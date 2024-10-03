@@ -105,6 +105,8 @@ pnpm add event-driven-webview-bridge-react-native
 ### For React Web Applications
 
 ```
+import ReactWebViewBridge from "event-driven-webview-bridge-react";
+
 const webviewBridge = ReactWebViewBridge.getInstance();
 
 // Listen for messages coming from the React Native applications
@@ -123,6 +125,8 @@ const response = await webViewBridge.postMessage({
 ### For React Native Applications
 
 ```
+import ReactNativeWebViewBridge from "event-driven-webview-bridge-react-native";
+
 const webviewBridge = ReactNativeWebViewBridge.getInstance();
 
 // Listen for messages coming from the WebView
