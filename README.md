@@ -142,6 +142,23 @@ const response = await webViewBridge.postMessage({
 
 ```
 
+### Plugin Usage
+
+```
+const logMessagePlugin = new WebViewBridgePlugin(pluginFunction);
+const plugins = { logMessagePlugin };
+const webViewBridge = ReactWebViewBridge.getInstance({ plugins });
+
+webViewBridge.triggerPluginActions("logMessagePlugin", "message");
+
+```
+
+### Message Sending: Sequential and Concurrent Handling
+
+```
+
+```
+
 ---
 
 ## 🤝 Contributing

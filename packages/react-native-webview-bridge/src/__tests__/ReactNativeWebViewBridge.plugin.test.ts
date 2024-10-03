@@ -1,4 +1,4 @@
-import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
+import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import { navigationPlugin } from "../plugins/navigationPlugin";
 import { versionHandlingPlugin } from "../plugins/versionHandlingPlugin";
 import { RefObject } from "react";

@@ -15,7 +15,7 @@ importers:
         specifier: ^0.75.3
         version: 0.75.3
       '@types/node':
-        specifier: ^20
+        specifier: ^20.16.5
         version: 20.16.5
       '@types/react':
         specifier: ^18
@@ -32,6 +32,12 @@ importers:
 
   example/react-app:
     dependencies:
+      event-driven-webview-bridge-core:
+        specifier: workspace:*
+        version: link:../../packages/webview-bridge-core
+      event-driven-webview-bridge-react:
+        specifier: workspace:*
+        version: link:../../packages/react-webview-bridge
       next:
         specifier: 14.2.10
         version: 14.2.10(react-dom@18.3.1)(react@18.3.1)
@@ -41,12 +47,6 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      react-webview-bridge:
-        specifier: workspace:*
-        version: link:../../packages/react-webview-bridge
-      webview-bridge-core:
-        specifier: workspace:*
-        version: link:../../packages/webview-bridge-core
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -66,6 +66,12 @@ importers:
 
   example/react-native-app:
     dependencies:
+      event-driven-webview-bridge-core:
+        specifier: workspace:*
+        version: link:../../packages/webview-bridge-core
+      event-driven-webview-bridge-react-native:
+        specifier: workspace:*
+        version: link:../../packages/react-native-webview-bridge
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -75,9 +81,6 @@ importers:
       react-native-webview:
         specifier: ^13.12.2
         version: 13.12.2(react-native@0.75.3)(react@18.3.1)
-      react-native-webview-bridge:
-        specifier: workspace:*
-        version: link:../../packages/react-native-webview-bridge
     devDependencies:
       '@babel/core':
         specifier: ^7.20.0
@@ -166,15 +169,15 @@ importers:
       '@react-navigation/native':
         specifier: ^6.1.18
         version: 6.1.18(react-native@0.75.3)(react@18.3.1)
+      event-driven-webview-bridge-core:
+        specifier: workspace:*
+        version: link:../webview-bridge-core
+      event-driven-webview-bridge-react:
+        specifier: workspace:*
+        version: link:../react-webview-bridge
       react-native-webview:
         specifier: ^13.12.2
         version: 13.12.2(react-native@0.75.3)(react@18.3.1)
-      react-webview-bridge:
-        specifier: workspace:*
-        version: link:../react-webview-bridge
-      webview-bridge-core:
-        specifier: workspace:*
-        version: link:../webview-bridge-core
     devDependencies:
       '@babel/plugin-transform-class-properties':
         specifier: ^7.25.4
@@ -221,12 +224,12 @@ importers:
 
   packages/react-webview-bridge:
     dependencies:
+      event-driven-webview-bridge-core:
+        specifier: workspace:*
+        version: link:../webview-bridge-core
       react:
         specifier: 18.3.1
         version: 18.3.1
-      webview-bridge-core:
-        specifier: workspace:*
-        version: link:../webview-bridge-core
     devDependencies:
       '@babel/preset-env':
         specifier: ^7.25.4

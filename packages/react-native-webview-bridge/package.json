@@ -17,8 +17,8 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "react-webview-bridge": "workspace:*",
-    "webview-bridge-core": "workspace:*"
+    "event-driven-webview-bridge-react": "workspace:*",
+    "event-driven-webview-bridge-core": "workspace:*"
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "^7.25.4",

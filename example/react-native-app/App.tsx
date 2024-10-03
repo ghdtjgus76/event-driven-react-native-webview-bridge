@@ -8,7 +8,8 @@ import {
   View,
 } from 'react-native';
 import {WebView, WebViewMessageEvent} from 'react-native-webview';
-import ReactNativeWebViewBridge from 'react-native-webview-bridge';
+import ReactNativeWebViewBridge from 'event-driven-webview-bridge-react-native';
+import {MessagePayload} from 'event-driven-webview-bridge-core/types/message';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -24,10 +25,13 @@ const App = () => {
   });
 
   const onWebViewLoad = () => {
-    webViewBridge.addMessageHandler('toRNMessage', message => {
-      const newMessage = `웹 -> 앱 ${message.type}: ${message.data}`;
-      setMessage(newMessage);
-    });
+    webViewBridge.addMessageHandler(
+      'toRNMessage',
+      (message: MessagePayload) => {
+        const newMessage = `웹 -> 앱 ${message.type}: ${message.data}`;
+        setMessage(newMessage);
+      },
+    );
   };
 
   const onMessage = (event: WebViewMessageEvent) => {

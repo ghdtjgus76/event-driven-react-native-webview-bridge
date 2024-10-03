@@ -1,10 +1,10 @@
-import { MessageHandlerFunction } from "webview-bridge-core/core/BaseMessageEventHandler";
+import { MessageHandlerFunction } from "event-driven-webview-bridge-core/core/BaseMessageEventHandler";
 import {
   PluginMap,
   WebViewBridgePluginManager,
-} from "webview-bridge-core/core/Plugin";
-import { MessagePayload } from "webview-bridge-core/types/message";
-import { WebViewBridgeOptions } from "webview-bridge-core/types/bridge";
+} from "event-driven-webview-bridge-core/core/Plugin";
+import { MessagePayload } from "event-driven-webview-bridge-core/types/message";
+import { WebViewBridgeOptions } from "event-driven-webview-bridge-core/types/bridge";
 import ReactMessageEventHandler from "./ReactMessageEventHandler";
 import ReactMessageQueue from "./ReactMessageQueue";
 

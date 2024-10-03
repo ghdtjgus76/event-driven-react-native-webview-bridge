@@ -1,6 +1,6 @@
-import BaseMessageEventHandler from "webview-bridge-core/core/BaseMessageEventHandler";
-import { MessagePayload } from "webview-bridge-core/types/message";
-import { detectEnvironment } from "webview-bridge-core/utils/environment";
+import BaseMessageEventHandler from "event-driven-webview-bridge-core/core/BaseMessageEventHandler";
+import { MessagePayload } from "event-driven-webview-bridge-core/types/message";
+import { detectEnvironment } from "event-driven-webview-bridge-core/utils/environment";
 
 class ReactMessageEventHandler extends BaseMessageEventHandler {
   private receiver: Document | Window;

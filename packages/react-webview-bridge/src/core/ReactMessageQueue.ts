@@ -1,5 +1,5 @@
-import MessageQueue from "webview-bridge-core/core/MessageQueue";
-import { MessagePayload } from "webview-bridge-core/types/message";
+import MessageQueue from "event-driven-webview-bridge-core/core/MessageQueue";
+import { MessagePayload } from "event-driven-webview-bridge-core/types/message";
 
 class ReactMessageQueue extends MessageQueue {
   handleMessage(message: MessagePayload): void {

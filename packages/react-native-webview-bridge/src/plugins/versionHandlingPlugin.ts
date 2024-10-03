@@ -1,4 +1,4 @@
-import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
+import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 
 type Version = `${number}.${number}.${number}`;
 type HandlerFunction = (...params: any[]) => any;

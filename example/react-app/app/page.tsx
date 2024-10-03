@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ReactWebViewBridge from "react-webview-bridge";
-import { PluginMap } from "webview-bridge-core/core/Plugin";
+import ReactWebViewBridge from "event-driven-webview-bridge-react";
+import { PluginMap } from "event-driven-webview-bridge-core/core/Plugin";
+import { MessagePayload } from "event-driven-webview-bridge-core/types/message";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
@@ -16,7 +17,7 @@ export default function Home() {
     const bridgeInstance = ReactWebViewBridge.getInstance();
     setWebViewBridge(bridgeInstance);
 
-    bridgeInstance.onMessage("toWebViewMessage", (message) => {
+    bridgeInstance.onMessage("toWebViewMessage", (message: MessagePayload) => {
       setMessage(`앱 -> 웹 ${message.type}: ${message.data}`);
     });
 

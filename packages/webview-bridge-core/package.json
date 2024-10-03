@@ -1,5 +1,5 @@
 {
-  "name": "webview-bridge-core",
+  "name": "event-driven-webview-bridge-core",
   "private": true,
   "exports": {
     "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",

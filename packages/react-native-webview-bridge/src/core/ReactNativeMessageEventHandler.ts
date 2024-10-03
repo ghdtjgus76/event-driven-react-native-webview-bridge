@@ -1,6 +1,6 @@
 import { WebViewMessageEvent } from "react-native-webview";
-import BaseMessageEventHandler from "webview-bridge-core/core/BaseMessageEventHandler";
-import { MessagePayload } from "webview-bridge-core/types/message";
+import BaseMessageEventHandler from "event-driven-webview-bridge-core/core/BaseMessageEventHandler";
+import { MessagePayload } from "event-driven-webview-bridge-core/types/message";
 
 class ReactNativeMessageEventHandler extends BaseMessageEventHandler {
   constructor() {

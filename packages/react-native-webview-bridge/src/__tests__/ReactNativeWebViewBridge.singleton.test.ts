@@ -1,5 +1,5 @@
-import ReactWebViewBridge from "react-webview-bridge";
-import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
+import ReactWebViewBridge from "event-driven-webview-bridge-react";
+import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import { RefObject } from "react";
 import WebView from "react-native-webview";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";

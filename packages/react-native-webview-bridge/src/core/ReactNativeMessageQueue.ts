@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import WebView from "react-native-webview";
-import MessageQueue from "webview-bridge-core/core/MessageQueue";
-import { MessagePayload } from "webview-bridge-core/types/message";
+import MessageQueue from "event-driven-webview-bridge-core/core/MessageQueue";
+import { MessagePayload } from "event-driven-webview-bridge-core/types/message";
 
 class ReactNativeMessageQueue extends MessageQueue {
   private webViewRef: RefObject<WebView>;

@@ -1,4 +1,4 @@
-import { WebViewBridgePlugin } from "webview-bridge-core/core/Plugin";
+import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
 
 describe("WebViewBridgePlugin and PluginManager", () => {
