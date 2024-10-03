@@ -2,22 +2,34 @@
 
 import { useEffect, useState } from "react";
 import ReactWebViewBridge from "react-webview-bridge";
+import { PluginMap } from "webview-bridge-core/core/Plugin";
 
 export default function Home() {
   const [message, setMessage] = useState<string>("");
   const [messageTransmissionSuccess, setMessageTransmissionSuccess] = useState<
     boolean | null
   >(null);
-
-  const webViewBridge = ReactWebViewBridge.getInstance();
+  const [webViewBridge, setWebViewBridge] =
+    useState<ReactWebViewBridge<PluginMap> | null>(null);
 
   useEffect(() => {
-    webViewBridge.onMessage("toWebViewMessage", (message) => {
+    const bridgeInstance = ReactWebViewBridge.getInstance();
+    setWebViewBridge(bridgeInstance);
+
+    bridgeInstance.onMessage("toWebViewMessage", (message) => {
       setMessage(`앱 -> 웹 ${message.type}: ${message.data}`);
     });
+
+    return () => {
+      bridgeInstance.cleanup();
+    };
   }, []);
 
   const handleClickPostMessageToRN = async () => {
+    if (!webViewBridge) {
+      return;
+    }
+
     const response = await webViewBridge.postMessage({
       type: "toRNMessage",
       data: "메시지2",
