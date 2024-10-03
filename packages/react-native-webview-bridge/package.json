@@ -1,6 +1,10 @@
 {
-  "name": "react-native-webview-bridge",
-  "private": true,
+  "name": "event-driven-webview-bridge-react-native",
+  "version": "1.0.1",
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "exports": {
     ".": "./src/core/ReactNativeWebViewBridge.ts",
     "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
@@ -8,7 +12,9 @@
     "./plugins/versionHandlingPlugin": "./src/plugins/versionHandlingPlugin.ts"
   },
   "scripts": {
-    "test": "jest --config ./jest.config.ts --passWithNoTests"
+    "test": "jest --config ./jest.config.ts --passWithNoTests",
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "dependencies": {
     "react-webview-bridge": "workspace:*",
@@ -24,10 +30,11 @@
     "@babel/preset-typescript": "^7.24.7",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/global-types": "workspace:*",
     "@types/jest": "^29.5.13",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
-    "@types/global-types": "workspace:*"
+    "tsup": "^8.3.0"
   },
   "peerDependencies": {
     "@react-navigation/native": "^6.1.18",
