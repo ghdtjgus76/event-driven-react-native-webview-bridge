@@ -56,7 +56,7 @@ These features make the **event-driven-rn-webview-bridge** a powerful tool for b
 
 ### For React Web Applications
 
-To install the **event-driven-webview-bridge** library for React applications, run one of the following commands:
+To install the **event-driven-webview-bridge-react** library for React applications, run one of the following commands:
 
 #### Using npm
 
@@ -78,7 +78,7 @@ pnpm add event-driven-webview-bridge-react
 
 ### For React Native Applications
 
-To install the **event-driven-webview-bridge** library for React Native applications, use one of the following commands:
+To install the **event-driven-webview-bridge-react-native** library for React Native applications, use one of the following commands:
 
 #### Using npm
 
@@ -96,6 +96,28 @@ yarn add event-driven-webview-bridge-react-native
 
 ```bash
 pnpm add event-driven-webview-bridge-react-native
+```
+
+### Common
+
+To install the **event-driven-webview-bridge-core** library, which includes support for plugins and common types ..etc, use one of the following commands:
+
+#### Using npm
+
+```bash
+npm install event-driven-webview-bridge-core
+```
+
+#### Using yarn
+
+```bash
+yarn add event-driven-webview-bridge-core
+```
+
+#### Using pnpm
+
+```bash
+pnpm add event-driven-webview-bridge-core
 ```
 
 ---
@@ -142,20 +164,49 @@ const response = await webViewBridge.postMessage({
 
 ```
 
-### Plugin Usage
+### Plugin Usage (Common)
 
 ```
+import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
+import ReactWebViewBridge from "event-driven-webview-bridge-react";
+
+// Create a new plugin instance using the defined plugin function
 const logMessagePlugin = new WebViewBridgePlugin(pluginFunction);
 const plugins = { logMessagePlugin };
+// Get the instance of the React WebView Bridge with the registered plugins
 const webViewBridge = ReactWebViewBridge.getInstance({ plugins });
 
+// Trigger the plugin action to log a message
 webViewBridge.triggerPluginActions("logMessagePlugin", "message");
-
 ```
 
-### Message Sending: Sequential and Concurrent Handling
+### Message Sending: Sequential and Concurrent Handling (Common)
 
 ```
+import ReactWebViewBridge from "event-driven-webview-bridge-react";
+
+const webviewBridge = ReactWebViewBridge.getInstance();
+
+// Send messages sequentially
+const response1 = await webviewBridge.postMessage({ type: "sequentialMessage1", data: "First message" });
+const response2 = await webviewBridge.postMessage({ type: "sequentialMessage2", data: "Second message" });
+
+console.log(response1, response2)
+<!-- { success: true } { success: true } -->
+
+// Send messages concurrently
+const promises = [
+  webviewBridge.postMessage({ type: "concurrentMessage1", data: "Concurrent message 1" }),
+  webviewBridge.postMessage({ type: "concurrentMessage2", data: "Concurrent message 2" }),
+];
+
+const response = await Promise.allSettled(promises);
+
+console.log(response)
+<!-- [
+  { status: "fulfilled", value: { success: true } },
+  { status: "fulfilled", value: { success: true } }
+] -->
 
 ```
 
