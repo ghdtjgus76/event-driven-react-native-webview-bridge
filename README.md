@@ -52,21 +52,14 @@ The **event-driven-rn-webview-bridge** library offers a range of features to enh
 
 To install the **event-driven-webview-bridge-react** library for React applications, run one of the following commands:
 
-#### Using npm
-
 ```bash
+# Using npm
 npm install event-driven-webview-bridge-react
-```
 
-#### Using yarn
-
-```bash
+# Using yarn
 yarn add event-driven-webview-bridge-react
-```
 
-#### Using pnpm
-
-```bash
+# Using pnpm
 pnpm add event-driven-webview-bridge-react
 ```
 
@@ -74,21 +67,14 @@ pnpm add event-driven-webview-bridge-react
 
 To install the **event-driven-webview-bridge-react-native** library for React Native applications, use one of the following commands:
 
-#### Using npm
-
 ```bash
+# Using npm
 npm install event-driven-webview-bridge-react-native
-```
 
-#### Using yarn
-
-```bash
+# Using yarn
 yarn add event-driven-webview-bridge-react-native
-```
 
-#### Using pnpm
-
-```bash
+# Using pnpm
 pnpm add event-driven-webview-bridge-react-native
 ```
 
@@ -97,21 +83,14 @@ pnpm add event-driven-webview-bridge-react-native
 To install the event-driven-webview-bridge-core library, which includes support for plugins, types, and utility functions, you can use one of the following commands. <br />
 This library can be downloaded if needed.
 
-#### Using npm
-
 ```bash
+# Using npm
 npm install event-driven-webview-bridge-core
-```
 
-#### Using yarn
-
-```bash
+# Using yarn
 yarn add event-driven-webview-bridge-core
-```
 
-#### Using pnpm
-
-```bash
+# Using pnpm
 pnpm add event-driven-webview-bridge-core
 ```
 
