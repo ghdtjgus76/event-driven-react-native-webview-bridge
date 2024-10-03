@@ -11,7 +11,6 @@ import ReactMessageQueue from "./ReactMessageQueue";
 class ReactWebViewBridge<P extends PluginMap> {
   private static instance: ReactWebViewBridge<PluginMap> | null = null;
   private pluginManager: WebViewBridgePluginManager<P>;
-  private requestId: number = 0;
   private messageEventHandler: ReactMessageEventHandler;
   private messageQueue: ReactMessageQueue;
 
@@ -49,17 +48,14 @@ class ReactWebViewBridge<P extends PluginMap> {
     return !!window.ReactNativeWebView;
   }
 
-  public postMessage(
-    message: {
-      type: MessagePayload["type"];
-      data: MessagePayload["data"];
-    },
-    priority: number = 0
-  ) {
-    const requestId = this.generateRequestId();
-    const requestMessage = { ...message, requestId };
+  public postMessage(message: {
+    type: MessagePayload["type"];
+    data: MessagePayload["data"];
+  }) {
+    const timestamp = this.generateTimestamp();
+    const requestMessage = { ...message, timestamp };
 
-    return this.messageQueue.enqueue(requestMessage, priority);
+    return this.messageQueue.enqueue(requestMessage);
   }
 
   public onMessage(
@@ -69,8 +65,8 @@ class ReactWebViewBridge<P extends PluginMap> {
     this.messageEventHandler.addHandler(type, handler);
   }
 
-  private generateRequestId(): MessagePayload["requestId"] {
-    return `request_${this.requestId++}`;
+  private generateTimestamp(): MessagePayload["timestamp"] {
+    return Date.now();
   }
 
   public getPlugins() {

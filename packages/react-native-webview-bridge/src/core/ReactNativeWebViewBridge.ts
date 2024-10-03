@@ -13,7 +13,6 @@ import ReactNativeMessageQueue from "./ReactNativeMessageQueue";
 class ReactNativeWebViewBridge<P extends PluginMap> {
   private static instance: ReactNativeWebViewBridge<PluginMap> | null = null;
   private pluginManager: WebViewBridgePluginManager<P>;
-  private requestId: number = 0;
   private messageEventHandler: ReactNativeMessageEventHandler;
   private messageQueue: ReactNativeMessageQueue;
   private webViewRef: RefObject<WebView>;
@@ -47,17 +46,14 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.pluginManager.triggerPluginActions(pluginName, ...args);
   }
 
-  public postMessage(
-    message: {
-      type: MessagePayload["type"];
-      data: MessagePayload["data"];
-    },
-    priority: number = 0
-  ): Promise<{ success: boolean }> {
-    const requestId = this.generateRequestId();
-    const requestMessage = { ...message, requestId };
+  public postMessage(message: {
+    type: MessagePayload["type"];
+    data: MessagePayload["data"];
+  }): Promise<{ success: boolean }> {
+    const timestamp = this.generateTimestamp();
+    const requestMessage = { ...message, timestamp };
 
-    return this.messageQueue.enqueue(requestMessage, priority);
+    return this.messageQueue.enqueue(requestMessage);
   }
 
   public addMessageHandler(
@@ -71,9 +67,8 @@ class ReactNativeWebViewBridge<P extends PluginMap> {
     this.messageEventHandler.handleMessageEvent(event);
   }
 
-  private generateRequestId(): MessagePayload["requestId"] {
-    this.requestId = Date.now();
-    return `request_${this.requestId++}`;
+  private generateTimestamp(): MessagePayload["timestamp"] {
+    return Date.now();
   }
 
   public getPlugins() {

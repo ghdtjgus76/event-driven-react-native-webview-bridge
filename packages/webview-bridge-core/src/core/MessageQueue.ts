@@ -7,7 +7,6 @@ interface QueueItem {
   ) => void;
   reject: (reason?: any) => void;
   attempts: number;
-  priority: number;
 }
 
 abstract class MessageQueue {
@@ -17,12 +16,14 @@ abstract class MessageQueue {
   private batchInterval = 100;
   private batchTimeout: NodeJS.Timeout | null = null;
 
-  public enqueue(
-    message: MessagePayload,
-    priority: number = 0
-  ): Promise<{ success: boolean }> {
+  public enqueue(message: MessagePayload): Promise<{ success: boolean }> {
     return new Promise((resolve, reject) => {
-      this.queue.push({ message, resolve, reject, attempts: 0, priority });
+      this.queue.push({
+        message,
+        resolve,
+        reject,
+        attempts: 0,
+      });
       this.sortQueue();
 
       if (!this.batchTimeout) {
@@ -39,11 +40,10 @@ abstract class MessageQueue {
   }
 
   private sortQueue(): void {
-    this.queue.sort((a, b) => b.priority - a.priority);
+    this.queue.sort((a, b) => b.message.timestamp - a.message.timestamp);
   }
 
   private processQueue(): void {
-    console.log(this.queue);
     if (this.processing) {
       return;
     }
@@ -51,11 +51,9 @@ abstract class MessageQueue {
     this.processing = true;
 
     while (this.queue.length) {
-      const { message, resolve, reject, attempts, priority } =
-        this.queue.shift()!;
+      const { message, resolve, reject, attempts } = this.queue.shift()!;
 
       try {
-        console.log(message)
         this.handleMessage(message);
         resolve({ success: true });
       } catch (error) {
@@ -70,7 +68,6 @@ abstract class MessageQueue {
             resolve,
             reject,
             attempts: attempts + 1,
-            priority,
           });
         } else {
           reject({ success: false, error });
