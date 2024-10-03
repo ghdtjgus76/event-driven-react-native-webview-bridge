@@ -50,7 +50,9 @@ const App = () => {
           ref={webViewRef}
           javaScriptEnabled={true}
           style={styles.webview}
-          source={{uri: 'http://192.168.200.102:3000/'}}
+          source={{
+            uri: 'https://event-driven-rn-webview-bridge-example.vercel.app/',
+          }}
           onLoad={onWebViewLoad}
           onMessage={onMessage}
         />
