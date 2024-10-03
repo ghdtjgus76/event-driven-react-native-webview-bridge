@@ -12,7 +12,8 @@
   "scripts": {},
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@types/global-types": "workspace:*"
   },
   "peerDependencies": {
     "react-native-webview": "^13.12.2"

@@ -1,0 +1,9 @@
+{
+  "name": "@types/global-types",
+  "private": true,
+  "main": "./src/index.d.ts",
+  "types": "./src/index.d.ts",
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
+  }
+}

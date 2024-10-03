@@ -19,7 +19,8 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@types/jest": "^29.5.13",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "@types/global-types": "workspace:*"
   },
   "peerDependencies": {
     "react": "18.3.1"

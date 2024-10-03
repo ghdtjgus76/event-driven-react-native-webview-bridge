@@ -26,7 +26,8 @@
     "@repo/typescript-config": "workspace:*",
     "@types/jest": "^29.5.13",
     "jest": "^29.7.0",
-    "ts-jest": "^29.2.5"
+    "ts-jest": "^29.2.5",
+    "@types/global-types": "workspace:*"
   },
   "peerDependencies": {
     "@react-navigation/native": "^6.1.18",
