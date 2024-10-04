@@ -10,11 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "event-driven-webview-bridge-core": "workspace:*",
+    "event-driven-webview-bridge-react-native": "workspace:*",
     "react": "18.3.1",
     "react-native": "0.75.3",
-    "react-native-webview": "^13.12.2",
-    "event-driven-webview-bridge-core": "workspace:*",
-    "event-driven-webview-bridge-react-native": "workspace:*"
+    "react-native-webview": "^13.12.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -25,6 +25,8 @@
     "@react-native/gradle-plugin": "^0.75.3",
     "@react-native/metro-config": "0.75.3",
     "@react-native/typescript-config": "0.75.3",
+    "@types/global-types": "workspace:*",
+    "@types/jest": "^29.5.13",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
@@ -32,8 +34,7 @@
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-test-renderer": "18.3.1",
-    "typescript": "5.0.4",
-    "@types/global-types": "workspace:*"
+    "typescript": "5.0.4"
   },
   "engines": {
     "node": ">=18"
