@@ -288,6 +288,9 @@ importers:
       '@types/global-types':
         specifier: workspace:*
         version: link:../global-types
+      '@types/node':
+        specifier: ^20.16.5
+        version: 20.16.5
       tsup:
         specifier: ^8.3.0
         version: 8.3.0(typescript@5.6.2)
