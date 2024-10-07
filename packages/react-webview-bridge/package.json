@@ -1,10 +1,12 @@
 {
   "name": "event-driven-webview-bridge-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "files": [
     "dist",
-    "package.json"
+    "package.json",
+    "README.md"
   ],
+  "license": "MIT",
   "exports": {
     ".": "./src/core/ReactWebViewBridge.ts"
   },
