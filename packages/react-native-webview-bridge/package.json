@@ -1,11 +1,12 @@
 {
   "name": "event-driven-webview-bridge-react-native",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "files": [
     "dist",
     "package.json",
     "README.md"
   ],
+  "license": "MIT",
   "exports": {
     ".": "./src/core/ReactNativeWebViewBridge.ts",
     "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
