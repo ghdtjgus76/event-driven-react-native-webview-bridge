@@ -165,7 +165,7 @@ const bridge = ReactNativeWebViewBridge.getInstance({
 
 ### API Reference
 
-**Class: ReactNativeWebViewBridge<P extends PluginMap>**
+**`Class: ReactNativeWebViewBridge<P extends PluginMap>`**
 
 This class manages the communication between a React Native app and a WebView by using a plugin system. <br />It allows for sending messages, triggering plugin actions, and handling incoming messages from the WebView.
 
