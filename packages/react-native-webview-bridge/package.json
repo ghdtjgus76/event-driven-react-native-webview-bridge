@@ -1,9 +1,10 @@
 {
   "name": "event-driven-webview-bridge-react-native",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "files": [
     "dist",
-    "package.json"
+    "package.json",
+    "README.md"
   ],
   "exports": {
     ".": "./src/core/ReactNativeWebViewBridge.ts",
