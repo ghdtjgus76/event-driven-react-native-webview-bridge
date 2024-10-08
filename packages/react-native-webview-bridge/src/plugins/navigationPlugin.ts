@@ -29,8 +29,8 @@ type NavigationPluginOptions = NavigationParams & {
   navigation: NavigationProp<ParamListBase>;
 };
 
-export const navigationPlugin = new WebViewBridgePlugin(
-  (options: NavigationPluginOptions) => {
+class NavigationPlugin extends WebViewBridgePlugin {
+  public execute(options: NavigationPluginOptions): void {
     const { action, params, navigation } = options;
 
     if (action === "push") {
@@ -45,7 +45,7 @@ export const navigationPlugin = new WebViewBridgePlugin(
       handleSetParams(navigation, params);
     }
   }
-);
+}
 
 const handlePush = (
   navigation: NavigationProp<any>,
@@ -90,3 +90,5 @@ const handleSetParams = (
 ) => {
   navigation.setParams(params);
 };
+
+export default NavigationPlugin;
