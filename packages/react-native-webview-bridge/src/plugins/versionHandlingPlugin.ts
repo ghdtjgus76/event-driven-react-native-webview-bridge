@@ -8,22 +8,28 @@ export interface VersionHandlers {
   };
 }
 
-export const versionHandlingPlugin = new WebViewBridgePlugin(
-  (
-    versionHandlers: VersionHandlers,
+class VersionHandlingPlugin extends WebViewBridgePlugin {
+  private versionHandlers: VersionHandlers;
+
+  constructor(versionHandlers: VersionHandlers) {
+    super();
+    this.versionHandlers = versionHandlers;
+  }
+
+  public execute(
     currentVersion: Version,
     functionName: keyof VersionHandlers[Version],
     ...params: any[]
-  ) => {
-    const sortedVersions = (Object.keys(versionHandlers) as Version[]).sort(
-      compareVersions
-    );
+  ) {
+    const sortedVersions = (
+      Object.keys(this.versionHandlers) as Version[]
+    ).sort(compareVersions);
 
     for (let i = sortedVersions.length - 1; i >= 0; i--) {
       const version = sortedVersions[i]!;
 
       if (compareVersions(version, currentVersion) <= 0) {
-        const handlers = versionHandlers[version];
+        const handlers = this.versionHandlers[version];
         const handler = handlers?.[functionName];
 
         if (handler) {
@@ -37,7 +43,7 @@ export const versionHandlingPlugin = new WebViewBridgePlugin(
       `No handler found for function "${functionName}" and version "${currentVersion}"`
     );
   }
-);
+}
 
 const compareVersions = (v1: Version, v2: Version) => {
   const [major1 = 0, minor1 = 0, patch1 = 0] = v1.split(".").map(Number);
@@ -47,3 +53,5 @@ const compareVersions = (v1: Version, v2: Version) => {
   if (minor1 !== minor2) return minor1 - minor2;
   return patch1 - patch2;
 };
+
+export default VersionHandlingPlugin;
