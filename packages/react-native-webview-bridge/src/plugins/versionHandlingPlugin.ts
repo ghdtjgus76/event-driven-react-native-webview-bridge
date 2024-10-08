@@ -19,7 +19,7 @@ class VersionHandlingPlugin extends WebViewBridgePlugin {
   public execute(
     currentVersion: Version,
     functionName: keyof VersionHandlers[Version],
-    ...params: any[]
+    params: Record<string, any>
   ) {
     const sortedVersions = (
       Object.keys(this.versionHandlers) as Version[]
@@ -33,7 +33,7 @@ class VersionHandlingPlugin extends WebViewBridgePlugin {
         const handler = handlers?.[functionName];
 
         if (handler) {
-          handler(...params);
+          handler(params);
           return;
         }
       }
