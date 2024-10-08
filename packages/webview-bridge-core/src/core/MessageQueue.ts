@@ -61,12 +61,15 @@ abstract class MessageQueue {
             this.handleMessage(message);
             resolve({ success: true });
           } catch (error) {
-            console.warn("메시지 처리 중 오류 발생:", error);
+            console.warn("An error occurred during message processing:", error);
 
             if (this.shouldRetry(attempts, error as Error)) {
               console.log(
-                `메시지 재시도: ${message.type}, 시도 횟수: ${attempts + 1}`
+                `Retrying message: ${message.type}, attempt count: ${
+                  attempts + 1
+                }`
               );
+
               this.queue.push({
                 message,
                 resolve,
