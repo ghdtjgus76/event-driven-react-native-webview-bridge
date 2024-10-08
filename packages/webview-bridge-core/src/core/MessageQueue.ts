@@ -40,7 +40,7 @@ abstract class MessageQueue {
   }
 
   private sortQueue(): void {
-    this.queue.sort((a, b) => b.message.timestamp - a.message.timestamp);
+    this.queue.sort((a, b) => a.message.timestamp - b.message.timestamp);
   }
 
   private async processQueue(): Promise<void> {
