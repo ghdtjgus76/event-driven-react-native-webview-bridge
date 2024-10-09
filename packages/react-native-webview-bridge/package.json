@@ -1,6 +1,6 @@
 {
   "name": "event-driven-webview-bridge-react-native",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "files": [
     "dist",
     "package.json",
@@ -9,27 +9,33 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "import": "./dist/core/ReactNativeWebViewBridge.mjs",
-      "require": "./dist/core/ReactNativeWebViewBridge.js",
-      "types": {
-        "import": "./dist/core/ReactNativeWebViewBridge.d.mts",
-        "require": "./dist/core/ReactNativeWebViewBridge.d.ts"
+      "import": {
+        "types": "./dist/core/ReactNativeWebViewBridge.d.mts",
+        "default": "./dist/core/ReactNativeWebViewBridge.mjs"
+      },
+      "require": {
+        "types": "./dist/core/ReactNativeWebViewBridge.d.ts",
+        "default": "./dist/core/ReactNativeWebViewBridge.js"
       }
     },
     "./plugins/navigationPlugin": {
-      "import": "./dist/plugins/navigationPlugin.mjs",
-      "require": "./dist/plugins/navigationPlugin.js",
-      "types": {
-        "import": "./dist/plugins/navigationPlugin.d.mts",
-        "require": "./dist/plugins/navigationPlugin.d.ts"
+      "import": {
+        "types": "./dist/plugins/navigationPlugin.d.mts",
+        "default": "./dist/plugins/navigationPlugin.mjs"
+      },
+      "require": {
+        "types": "./dist/plugins/navigationPlugin.d.ts",
+        "default": "./dist/plugins/navigationPlugin.js"
       }
     },
     "./plugins/versionHandlingPlugin": {
-      "import": "./dist/plugins/versionHandlingPlugin.mjs",
-      "require": "./dist/plugins/versionHandlingPlugin.js",
-      "types": {
-        "import": "./dist/plugins/versionHandlingPlugin.d.mts",
-        "require": "./dist/plugins/versionHandlingPlugin.d.ts"
+      "import": {
+        "types": "./dist/plugins/versionHandlingPlugin.d.mts",
+        "default": "./dist/plugins/versionHandlingPlugin.mjs"
+      },
+      "require": {
+        "types": "./dist/plugins/versionHandlingPlugin.d.ts",
+        "default": "./dist/plugins/versionHandlingPlugin.js"
       }
     }
   },
