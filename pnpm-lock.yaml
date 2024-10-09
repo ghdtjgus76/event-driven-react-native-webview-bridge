@@ -176,10 +176,10 @@ importers:
         specifier: ^6.1.18
         version: 6.1.18(react-native@0.75.3)(react@18.3.1)
       event-driven-webview-bridge-core:
-        specifier: workspace:*
+        specifier: latest
         version: link:../webview-bridge-core
       event-driven-webview-bridge-react:
-        specifier: workspace:*
+        specifier: latest
         version: link:../react-webview-bridge
       react-native-webview:
         specifier: ^13.12.2
@@ -234,7 +234,7 @@ importers:
   packages/react-webview-bridge:
     dependencies:
       event-driven-webview-bridge-core:
-        specifier: workspace:*
+        specifier: latest
         version: link:../webview-bridge-core
       react:
         specifier: 18.3.1

@@ -1,6 +1,6 @@
 {
   "name": "event-driven-webview-bridge-react-native",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "files": [
     "dist",
     "package.json",
@@ -45,8 +45,8 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "event-driven-webview-bridge-core": "workspace:*",
-    "event-driven-webview-bridge-react": "workspace:*"
+    "event-driven-webview-bridge-core": "latest",
+    "event-driven-webview-bridge-react": "latest"
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "^7.25.4",
