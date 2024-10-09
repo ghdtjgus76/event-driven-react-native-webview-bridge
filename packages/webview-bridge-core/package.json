@@ -1,17 +1,71 @@
 {
   "name": "event-driven-webview-bridge-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "files": [
     "dist",
     "package.json"
   ],
   "exports": {
-    "./core/BaseMessageEventHandler": "./src/core/BaseMessageEventHandler.ts",
-    "./core/Plugin": "./src/core/Plugin.ts",
-    "./core/MessageQueue": "./src/core/MessageQueue.ts",
-    "./utils/environment": "./src/utils/environment.ts",
-    "./types/bridge": "./src/types/bridge.ts",
-    "./types/message": "./src/types/message.ts"
+    "./core/BaseMessageEventHandler": {
+      "import": {
+        "default": "./dist/core/BaseMessageEventHandler.mjs",
+        "types": "./dist/core/BaseMessageEventHandler.d.mts"
+      },
+      "require": {
+        "default": "./dist/core/BaseMessageEventHandler.js",
+        "types": "./dist/core/BaseMessageEventHandler.d.ts"
+      }
+    },
+    "./core/Plugin": {
+      "import": {
+        "default": "./dist/core/Plugin.mjs",
+        "types": "./dist/core/Plugin.d.mts"
+      },
+      "require": {
+        "default": "./dist/core/Plugin.js",
+        "types": "./dist/core/Plugin.d.ts"
+      }
+    },
+    "./core/MessageQueue": {
+      "import": {
+        "default": "./dist/core/MessageQueue.mjs",
+        "types": "./dist/core/MessageQueue.d.mts"
+      },
+      "require": {
+        "default": "./dist/core/MessageQueue.js",
+        "types": "./dist/core/MessageQueue.d.ts"
+      }
+    },
+    "./utils/environment": {
+      "import": {
+        "default": "./dist/utils/environment.mjs",
+        "types": "./dist/utils/environment.d.mts"
+      },
+      "require": {
+        "default": "./dist/utils/environment.js",
+        "types": "./dist/utils/environment.d.ts"
+      }
+    },
+    "./types/bridge": {
+      "import": {
+        "default": "./dist/types/bridge.mjs",
+        "types": "./dist/types/bridge.d.mts"
+      },
+      "require": {
+        "default": "./dist/types/bridge.js",
+        "types": "./dist/types/bridge.d.ts"
+      }
+    },
+    "./types/message": {
+      "import": {
+        "default": "./dist/types/message.mjs",
+        "types": "./dist/types/message.d.mts"
+      },
+      "require": {
+        "default": "./dist/types/message.js",
+        "types": "./dist/types/message.d.ts"
+      }
+    }
   },
   "scripts": {
     "build": "tsup",
