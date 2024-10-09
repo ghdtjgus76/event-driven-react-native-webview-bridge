@@ -1,4 +1,3 @@
-import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
 import LogMessagePlugin from "../plugins/logMessagePlugin";
 
