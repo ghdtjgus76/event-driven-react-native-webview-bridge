@@ -25,7 +25,7 @@ type NavigationParams =
       };
     };
 
-type NavigationPluginOptions = NavigationParams & {
+export type NavigationPluginOptions = NavigationParams & {
   navigation: NavigationProp<ParamListBase>;
 };
 
