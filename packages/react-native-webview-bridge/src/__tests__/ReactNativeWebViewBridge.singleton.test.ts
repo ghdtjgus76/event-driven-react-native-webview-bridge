@@ -1,8 +1,8 @@
 import ReactWebViewBridge from "event-driven-webview-bridge-react";
-import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import { RefObject } from "react";
 import WebView from "react-native-webview";
 import ReactNativeWebViewBridge from "../core/ReactNativeWebViewBridge";
+import LogMessagePlugin from "../plugins/logMessagePlugin";
 
 describe("ReactNativeWebViewBridge Singleton", () => {
   it("should create a singleton instance of ReactNativeWebViewBridge", () => {
@@ -55,10 +55,7 @@ describe("ReactNativeWebViewBridge Singleton", () => {
       postMessage: jest.fn(),
     };
     const webViewRef = { current: mockWebView } as RefObject<WebView>;
-
-    const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
-      console.log(message)
-    );
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
     const instance = ReactNativeWebViewBridge.getInstance({
       plugins,
@@ -76,10 +73,7 @@ describe("ReactNativeWebViewBridge Singleton", () => {
       postMessage: jest.fn(),
     };
     const webViewRef = { current: mockWebView } as RefObject<WebView>;
-
-    const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
-      console.log(message)
-    );
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
     ReactWebViewBridge.getInstance({
       plugins,
