@@ -1,6 +1,6 @@
 {
   "name": "event-driven-webview-bridge-react-native",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "files": [
     "dist",
     "package.json",
@@ -8,10 +8,30 @@
   ],
   "license": "MIT",
   "exports": {
-    ".": "./src/core/ReactNativeWebViewBridge.ts",
-    "./plugins/logMessagePlugin": "./src/plugins/logMessagePlugin.ts",
-    "./plugins/navigationPlugin": "./src/plugins/navigationPlugin.ts",
-    "./plugins/versionHandlingPlugin": "./src/plugins/versionHandlingPlugin.ts"
+    ".": {
+      "import": "./dist/core/ReactNativeWebViewBridge.mjs",
+      "require": "./dist/core/ReactNativeWebViewBridge.js",
+      "types": {
+        "import": "./dist/core/ReactNativeWebViewBridge.d.mts",
+        "require": "./dist/core/ReactNativeWebViewBridge.d.ts"
+      }
+    },
+    "./plugins/navigationPlugin": {
+      "import": "./dist/plugins/navigationPlugin.mjs",
+      "require": "./dist/plugins/navigationPlugin.js",
+      "types": {
+        "import": "./dist/plugins/navigationPlugin.d.mts",
+        "require": "./dist/plugins/navigationPlugin.d.ts"
+      }
+    },
+    "./plugins/versionHandlingPlugin": {
+      "import": "./dist/plugins/versionHandlingPlugin.mjs",
+      "require": "./dist/plugins/versionHandlingPlugin.js",
+      "types": {
+        "import": "./dist/plugins/versionHandlingPlugin.d.mts",
+        "require": "./dist/plugins/versionHandlingPlugin.d.ts"
+      }
+    }
   },
   "scripts": {
     "test": "jest --config ./jest.config.ts --passWithNoTests",
