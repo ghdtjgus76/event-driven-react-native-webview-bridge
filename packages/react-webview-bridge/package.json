@@ -1,6 +1,6 @@
 {
   "name": "event-driven-webview-bridge-react",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "files": [
     "dist",
     "package.json",
@@ -10,12 +10,12 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/core/ReactWebViewBridge.d.mts",
-        "default": "./dist/core/ReactWebViewBridge.mjs"
+        "types": "./dist/ReactWebViewBridge.d.mts",
+        "default": "./dist/ReactWebViewBridge.mjs"
       },
       "require": {
-        "types": "./dist/core/ReactWebViewBridge.d.ts",
-        "default": "./dist/core/ReactWebViewBridge.js"
+        "types": "./dist/ReactWebViewBridge.d.ts",
+        "default": "./dist/ReactWebViewBridge.js"
       }
     }
   },
