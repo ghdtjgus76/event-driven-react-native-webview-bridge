@@ -1,5 +1,6 @@
 import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
+import LogMessagePlugin from "../plugins/logMessagePlugin";
 
 describe("WebViewBridgePlugin and PluginManager", () => {
   afterEach(() => {
@@ -8,20 +9,19 @@ describe("WebViewBridgePlugin and PluginManager", () => {
   });
 
   it("should register and execute plugins correctly", () => {
-    const pluginFunction = jest.fn();
-    const logMessagePlugin = new WebViewBridgePlugin(pluginFunction);
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
     const instance = ReactWebViewBridge.getInstance({ plugins });
+    const consoleLogMock = jest.spyOn(console, "log");
 
-    instance.triggerPluginActions("logMessagePlugin", "message");
+    instance.triggerPluginActions("logMessagePlugin", { message: "message" });
 
-    expect(pluginFunction).toHaveBeenCalled();
-    expect(pluginFunction).toHaveBeenCalledWith("message");
+    expect(consoleLogMock).toHaveBeenCalled();
+    expect(consoleLogMock).toHaveBeenCalledWith("message");
   });
 
   it("should throw an error if a non-existent plugin is triggered", () => {
-    const pluginFunction = jest.fn();
-    const logMessagePlugin = new WebViewBridgePlugin(pluginFunction);
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
     const instance = ReactWebViewBridge.getInstance({ plugins });
 
@@ -31,13 +31,9 @@ describe("WebViewBridgePlugin and PluginManager", () => {
   });
 
   it("should return the correct plugins list", () => {
-    const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
-      console.log(message)
-    );
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
-    const instance = ReactWebViewBridge.getInstance({
-      plugins,
-    });
+    const instance = ReactWebViewBridge.getInstance({ plugins });
 
     expect(instance.getPlugins()).toEqual(plugins);
   });
