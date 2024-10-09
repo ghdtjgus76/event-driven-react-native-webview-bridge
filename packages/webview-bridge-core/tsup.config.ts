@@ -3,6 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   clean: true,
   target: "es2022",
+  dts: true,
   entry: [
     "src/core/BaseMessageEventHandler.ts",
     "src/core/Plugin.ts",
