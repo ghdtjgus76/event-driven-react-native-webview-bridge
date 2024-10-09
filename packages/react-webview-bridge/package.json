@@ -1,6 +1,6 @@
 {
   "name": "event-driven-webview-bridge-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "files": [
     "dist",
     "package.json",
@@ -8,7 +8,16 @@
   ],
   "license": "MIT",
   "exports": {
-    ".": "./src/core/ReactWebViewBridge.ts"
+    ".": {
+      "import": {
+        "types": "./dist/core/ReactWebViewBridge.d.mts",
+        "default": "./dist/core/ReactWebViewBridge.mjs"
+      },
+      "require": {
+        "types": "./dist/core/ReactWebViewBridge.d.ts",
+        "default": "./dist/core/ReactWebViewBridge.js"
+      }
+    }
   },
   "scripts": {
     "test": "jest --config ./jest.config.ts --passWithNoTests",
