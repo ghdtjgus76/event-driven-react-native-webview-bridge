@@ -1,5 +1,6 @@
 import { WebViewBridgePlugin } from "event-driven-webview-bridge-core/core/Plugin";
 import ReactWebViewBridge from "../core/ReactWebViewBridge";
+import LogMessagePlugin from "../plugins/logMessagePlugin";
 
 describe("ReactWebViewBridge Singleton", () => {
   afterEach(() => {
@@ -29,9 +30,7 @@ describe("ReactWebViewBridge Singleton", () => {
   });
 
   it("should apply initial options correctly", () => {
-    const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
-      console.log(message)
-    );
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
     const instance = ReactWebViewBridge.getInstance({
       plugins,
@@ -41,9 +40,7 @@ describe("ReactWebViewBridge Singleton", () => {
   });
 
   it("should retain plugin configuration after multiple getInstance calls", () => {
-    const logMessagePlugin = new WebViewBridgePlugin((message: string) =>
-      console.log(message)
-    );
+    const logMessagePlugin = new LogMessagePlugin();
     const plugins = { logMessagePlugin };
     const instance1 = ReactWebViewBridge.getInstance({
       plugins,
